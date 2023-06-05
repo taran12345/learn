@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: GMO_10494_constraints_01
+      author: unknown
+      dbms: oracle, hsqldb
+      changes:
+        - addPrimaryKey:
+            columnNames: ID
+            constraintName: GROUPS_DATA_PK
+            tableName: GROUPS_DATA

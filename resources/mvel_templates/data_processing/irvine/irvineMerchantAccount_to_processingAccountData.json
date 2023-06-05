@@ -1,0 +1,117 @@
+{
+  "id": @{nullSafeSet(?merchant.get('processingAccountId'))},
+  "pmleId": null,
+  "pmleName": null,
+  "groupId": @{nullSafeSet(?merchant.get('groupId'))},
+  "paymentAccountId": @{nullSafeSet(?merchant.get('paymentAccountId'))},
+  "status": {
+    "code": @{nullSafeSet(?merchant.get('accountStatusCc'))},
+    "reason": null,
+    "comment": null
+  },
+  "currency": @{nullSafeSet(?merchant.get('processingCurrency'))},
+  "gateway": @{nullSafeSet(?merchant.get('gateway'))},
+  "cardConfiguration": {
+    "paymentMethod": @{nullSafeSet(?merchant.get('moto'))},
+    "allowedTransactionOperations": {
+      "is3DsEnabled": @{getBoolean(?merchant.get('3dSecure'))},
+      "isPaymentTypesGatewayCheck21Enabled": @{getBoolean(?merchant.get('PaymentTypesGatewayCheck21'))},
+      "isVtCardSwiperEnabled": @{getBoolean(?merchant.get('VtCardSwiper'))},
+      "isAprivaWirelessEnabled": @{getBoolean(?merchant.get('aprivaWireless'))},
+      "isLevel3Enabled": @{getBoolean(?merchant.get('level3Merchant'))},
+      "isAchEnabled": @{getBoolean(?merchant.get('paymentTypesGatewayAch'))},
+      "isCreditCardEnabled": @{getBoolean(?merchant.get('paymentTypesGatewayCreditCard'))}
+    },
+    "authorizationSecurityOptions": {
+      "isThreatMetrixEnabled": @{getBoolean(?merchant.get('Threatmetrix'))}
+    },
+    "cardTypes": [
+      {
+        "acquirer": {
+          "name": @{nullSafeSet(?merchant.get('acquiringBank'))},
+          "mid": null,
+          "backMid": @{nullSafeSet(?merchant.get('backMid'))},
+          "frontMid": @{nullSafeSet(?merchant.get('frontMid'))},
+          "tids": [@{nullSafeSet(?merchant.get('tid'))}]
+        },
+        "settlementBank": {
+          "name": @{nullSafeSet(?merchant.get('acquiringBank'))}
+        }
+      }
+    ]
+  },
+  "businessOwners": [
+    @if{merchant.get('owners') != null}
+      @foreach{owner : merchant.get('owners')}
+      {
+        "person": {
+          "firstName": @{nullSafeSet(?owner.get('owner_firstName'))},
+          "lastName": @{nullSafeSet(?owner.get('owner_lastName'))},
+          @if{org.apache.commons.lang3.StringUtils.isNotBlank(owner.get('owner_dob')) && owner.get('owner_dob').length() > 10}
+            "dateOfBirth": {
+              "day": @{nullSafeSet(owner.get('owner_dob').substring(8,10))},
+              "month": @{nullSafeSet(owner.get('owner_dob').substring(5,7))},
+              "year": @{nullSafeSet(owner.get('owner_dob').substring(0,4))}
+            },
+          @end{}
+          "currentAddress": {
+            "country": @{nullSafeSet(?owner.get('owner_address_country'))}
+          }
+        }
+      }
+      @end{','}
+    @end{}
+  ],
+  "businessDetails": {
+    "tradeName": @{nullSafeSet(?merchant.get('dba_name'))},
+    "type": @{nullSafeSet(?merchant.get('business_type'))},
+    "websiteUrl": @{nullSafeSet(?merchant.get('websiteUrl'))},
+    "customerServiceEmail": @{nullSafeSet(?merchant.get('customerService_email'))},
+    "customerServicePhone": {
+      "number": @{nullSafeSet(?merchant.get('customerService_phone_number'))},
+      "extension": @{nullSafeSet(?merchant.get('customerService_phone_ext'))},
+      "countryCode": @{nullSafeSet(?merchant.get('customerService_phone_countryCode'))}
+    },
+    "legalEntity":{
+      "id": @{nullSafeSet(?merchant.get('_id'))},
+      "description": @{nullSafeSet(?merchant.get('mle_name'))}
+    },
+    "mcc":{
+      "code": @{nullSafeSet(?merchant.get('mcc'))}
+    },
+    "tradeAddress":{
+      "street": @{nullSafeSet(?merchant.get('dba_address_line1'))},
+      "street1": @{nullSafeSet(?merchant.get('dba_address_line1'))},
+      "street2": @{nullSafeSet(?merchant.get('dba_address_line2'))},
+      "city": @{nullSafeSet(?merchant.get('dba_address_city'))},
+      "country": @{nullSafeSet(?merchant.get('dba_address_country'))},
+      "state": @{nullSafeSet(?merchant.get('dba_address_state'))},
+      "zip": @{nullSafeSet(?merchant.get('dba_address_postalCode'))}
+    },
+    "fax": {
+      "number": @{nullSafeSet(?merchant.get('dba_fax_number'))},
+      "extension": @{nullSafeSet(?merchant.get('dba_fax_ext'))},
+      "countryCode": @{nullSafeSet(?merchant.get('dba_fax_countryCode'))}
+    },
+    "phone": {
+      "number": @{nullSafeSet(?merchant.get('mle_phone_number'))},
+      "extension": @{nullSafeSet(?merchant.get('dba_phone_ext'))},
+      "countryCode": @{nullSafeSet(?merchant.get('dba_phone_countryCode'))}
+    },
+    "registeredAddress":{
+      "street": @{nullSafeSet(?merchant.get('mle_address_line1'))},
+      "street1": @{nullSafeSet(?merchant.get('mle_address_line1'))},
+      "street2": @{nullSafeSet(?merchant.get('mle_address_line2'))},
+      "city": @{nullSafeSet(?merchant.get('mle_address_city'))},
+      "country": @{nullSafeSet(?merchant.get('mle_address_country'))},
+      "state": @{nullSafeSet(?merchant.get('mle_address_state'))},
+      "zip": @{nullSafeSet(?merchant.get('mle_address_postalCode'))}
+    },
+    "taxRegistrationNumber": @{nullSafeSet(?merchant.get('taxRegistrationNumber'))}
+  },
+  "sourceAuthority": {
+    "origin": "PAYMENT_XP",
+    "location": "IRVINE",
+    "referenceId": @{nullSafeSet(?merchant.get('_id'))}
+  }
+}

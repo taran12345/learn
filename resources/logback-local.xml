@@ -1,0 +1,18 @@
+<configuration>
+        <!-- <encoder> <pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} [%X{correlationId:-System},%X{guid:-System}] [%thread] %-5level %logger{36}:%line - %msg%n</pattern> </encoder> -->
+    	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    		<encoder>
+   		   			<pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    		</encoder>
+ 		 </appender>
+  		<!-- 
+   			 For fine-grained package level settings see the "Logback Custom Log Level Configuration" Confluence Page 
+  			  https://confluence.oneplatform.org/confluence/display/OP/Logback+Custom+Log+Level+Configuration 
+ 		 -->
+    
+    <!-- For fine-grained package level settings see the "Logback Custom Log 
+        Level Configuration" Confluence Page https://confluence.oneplatform.org/confluence/display/OP/Logback+Custom+Log+Level+Configuration -->
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

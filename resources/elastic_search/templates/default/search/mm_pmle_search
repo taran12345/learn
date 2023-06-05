@@ -1,0 +1,29 @@
+{
+  "template": {
+    "size": "10000",
+    "_source": [
+      "paymentAccounts.processingAccounts.id"
+    ],
+    "query": {
+      "nested": {
+        "path": "paymentAccounts",
+        "query": {
+          "nested": {
+            "path": "paymentAccounts.processingAccounts",
+            "query": {
+              "bool": {
+                "filter": [
+                  {
+                    "term": {
+                      "paymentAccounts.processingAccounts.pmleId.keyword": "{{pmleId}}"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

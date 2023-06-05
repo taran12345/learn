@@ -1,0 +1,32 @@
+{
+  "template": {
+    "size": "10000",
+    "_source": ["paymentAccounts.processingAccounts"],
+    "query": {
+      "nested": {
+        "path": "paymentAccounts",
+        "query": {
+          "nested": {
+            "path": "paymentAccounts.processingAccounts",
+            "query": {
+              "bool": {
+                "filter": [
+                  {
+                    "term": {
+                      "paymentAccounts.processingAccounts.sourceAuthority.origin.keyword": "{{origin}}"
+                    }
+                  },
+                  {
+                    "term": {
+                      "paymentAccounts.processingAccounts.sourceAuthority.referenceId.keyword": "{{referenceId}}"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

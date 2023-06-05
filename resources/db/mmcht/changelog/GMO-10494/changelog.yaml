@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: db/mmcht/changelog/GMO-10494/tables.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-10494/constraints.yaml

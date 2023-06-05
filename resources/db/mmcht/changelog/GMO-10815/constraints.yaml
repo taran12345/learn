@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: GMO_10815_constraints_01
+      author: unknown
+      dbms: oracle, hsqldb
+      changes:
+        - addPrimaryKey:
+            columnNames: ID
+            constraintName: PAYMENT_ACCOUNTS_DATA_PK
+            tableName: PAYMENT_ACCOUNTS_DATA

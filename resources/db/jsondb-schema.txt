@@ -1,0 +1,26 @@
+create /MPP/jsondb/masterMerchant/masterMerchantData
+create /MPP/jsondb/masterMerchant/paymentAccountIndex
+create /MPP/jsondb/masterMerchant/processingAccountIndex
+create /MPP/jsondb/masterMerchant/groupData
+create /MPP/jsondb/masterMerchant/paymentAccountData
+create /MPP/jsondb/masterMerchant/processingAccountData
+create /MPP/jsondb/masterMerchant/templateMetadata
+create /MPP/jsondb/masterMerchant/referenceMappings
+
+create /MPP/jsondb/masterMerchant/fileprocessing/merchants
+create /MPP/jsondb/masterMerchant/fileprocessing/documents
+create /MPP/jsondb/masterMerchant/fileprocessing/descriptors
+create /MPP/jsondb/masterMerchant/fileprocessing/owners
+create /MPP/jsondb/masterMerchant/fileprocessing/terminals
+create /MPP/jsondb/masterMerchant/fileprocessing/merchantfeescard
+create /MPP/jsondb/masterMerchant/fileprocessing/fulfillmenthouse
+create /MPP/jsondb/masterMerchant/fileprocessing/businessrelationship
+create /MPP/jsondb/masterMerchant/fileprocessing/metadata
+create /MPP/jsondb/masterMerchant/fileprocessing/denormalizedmerchants
+create /MPP/jsondb/masterMerchant/fileprocessing/linkagebuilderdata
+create /MPP/jsondb/masterMerchant/fileprocessing/processedmerchantids
+
+create /MPP/jsondb/masterMerchant/pmleMappings
+
+
+create /MPP/jsondb/masterMerchant/merchantElasticCountsSummary

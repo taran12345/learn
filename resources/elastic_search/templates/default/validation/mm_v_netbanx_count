@@ -1,0 +1,44 @@
+{
+  "template": {
+    "size": 0,
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "nested": {
+              "path": "paymentAccounts",
+              "query": {
+                "nested": {
+                  "path": "paymentAccounts.processingAccounts",
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "term": {
+                            "paymentAccounts.processingAccounts.sourceAuthority.origin.keyword": "NETBANX"
+                          }
+                        },
+                        {
+                          "exists": {
+                            "field": "paymentAccounts.processingAccounts.sourceAuthority.referenceId"
+                          }
+                        }
+                      ],
+                      "must_not": [
+                        {
+                          "wildcard": {
+                            "paymentAccounts.processingAccounts.sourceAuthority.referenceId.keyword": "*_*"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

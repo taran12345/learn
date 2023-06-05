@@ -1,0 +1,90 @@
+@code{def nullSafeSet(input) { return com.paysafe.mastermerchant.util.MasterMerchantCommonUtil.nullSafe(input); }}
+
+@code{def nonPrintableChar(input) { return input.replaceAll("[\\p{C}]", ""); }}
+
+{
+  "id": "@{groupId}",
+  "type": "MERCHANT",
+  "paymentAccountIds": ["@{paymentAccountId}"],
+  "status": {
+    "code": @{nullSafeSet(?accountStatus)},
+    "reason": @{nullSafeSet(?accountStatusReason)},
+    "comment": null
+  },
+  "termsAndConditions": {
+    "version": @{nullSafeSet(?termsVersion)},
+    "effectiveDate": @{nullSafeSet(?termsEffectiveDate)}
+  },
+  "partnerConfiguration": {
+    "onboardingConfiguration": {
+      "products": [{
+        "paymentConfiguration": {
+          "splitPayments": {
+            "enabled": @{nullSafeSet(?splitTransfer)}
+          },
+          "paymentOptions": {
+            "transfers": @{nullSafeSet(?balanceTransfer)},
+            "overdraftTransfers": @{nullSafeSet(?overDraftTransfer)}
+          }
+        }
+      }]
+    }
+  },
+  "sourceAuthority": {
+    "origin": "NETBANX",
+    "location": "MONTREAL",
+    "referenceId": "@{accountId}"
+  },
+  "creationDate": @{nullSafeSet(?creationDate)},
+  "statusModifiedDate": @{nullSafeSet(?accountStatusModifiedDate)},
+  "enabledDate": @{nullSafeSet(?enabledDate)},
+  "agents": [
+    @foreach{agent : agentDetails}
+    {
+      "id": @{nullSafeSet(?agent.get('agentId'))},
+      "contactName": @{nullSafeSet(?agent.get('agentName'))}
+    }
+    @end{','}
+  ],
+  "valueAddedServices": {
+      "thirdPartyServices" : [
+        @if{?thirdPartyServices != null}
+          @foreach{thirdPartyService : thirdPartyServices}
+          {
+            "name": @{nullSafeSet(?thirdPartyService.get('name'))},
+            "providerName": @{nullSafeSet(?thirdPartyService.get('providerName'))},
+            @if{?thirdPartyService.get('fees') != null}
+              "fees": {
+                @foreach{fee : thirdPartyService.get('fees').entrySet()}
+                  @{nullSafeSet(fee.key)} : @{nullSafeSet(fee.value)}
+                @end{','}
+              },
+            @end{}
+            @if{?thirdPartyService.get('properties') != null}
+              "properties": {
+                @foreach{property : thirdPartyService.get('properties').entrySet()}
+                  @{nullSafeSet(property.key)} : @{nullSafeSet(property.value)}
+                @end{','}
+              }
+            @end{}
+          }
+          @end{','}
+        @end{}
+      ],
+    "thirdPartyConfiguration": {
+      "eqfId": @{nullSafeSet(?thirdPartyConfiguration.get('eqfId'))},
+      "eqfPassword": @{nullSafeSet(?thirdPartyConfiguration.get('eqfPassword'))},
+      "eqfProcessorId": @{nullSafeSet(?thirdPartyConfiguration.get('eqfProcessorId'))},
+      "eqfAcroCustomerNumber": @{nullSafeSet(?thirdPartyConfiguration.get('eqfAcroCustomerNumber'))},
+      "eqfAcroSecurityCode": @{nullSafeSet(?thirdPartyConfiguration.get('eqfAcroSecurityCode'))},
+      "eqfAcroCustomerCode": @{nullSafeSet(?thirdPartyConfiguration.get('eqfAcroCustomerCode'))},
+      "threatMetrixOrgId": @{nullSafeSet(?thirdPartyConfiguration.get('threatMetrixOrgId'))},
+      "threatMetrixApiKey": @{nullSafeSet(?thirdPartyConfiguration.get('threatMetrixApiKey'))}
+    },
+    "threeDSecureV1Configuration": {
+      "cardinalId": @{nullSafeSet(?threeDSecureV1Configuration.get('cardinalId'))},
+      "cardinalPassword": @{nullSafeSet(?threeDSecureV1Configuration.get('cardinalPassword'))},
+      "cardinalProcessorId": @{nullSafeSet(?threeDSecureV1Configuration.get('cardinalProcessorId'))}
+    }
+  }
+}

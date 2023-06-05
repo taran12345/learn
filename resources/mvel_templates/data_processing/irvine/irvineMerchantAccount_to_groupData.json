@@ -1,0 +1,18 @@
+@code{def nullSafeSet(input) { return com.paysafe.mastermerchant.util.MasterMerchantCommonUtil.nullSafe(input); }}
+
+{
+  "id": @{nullSafeSet(?merchant.get('groupId'))},
+  "name": @{nullSafeSet(?merchant.get('accountName'))},
+  "type": "MERCHANT",
+  "paymentAccountIds": [@{nullSafeSet(?merchant.get('paymentAccountId'))}],
+  "status": {
+    "code": @{nullSafeSet(?merchant.get('accountStatusCc'))},
+    "reason": null,
+    "comment": null
+  },
+  "sourceAuthority": {
+    "origin": "PAYMENT_XP",
+    "location": "IRVINE",
+    "referenceId": @{nullSafeSet(?merchant.get('_id'))}
+  }
+}

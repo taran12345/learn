@@ -1,0 +1,337 @@
+info:
+  app:
+    name: ${spring.application.name}
+    description:  '@application.description@'
+    version: '@application.version@'
+    group: '@application.group@'
+    gitCurrentBranch: '@application.current.branch@'
+    gitChangeSet: '@application.latest.revision@'
+    buildDate: '@application.timestamp@'
+    component: Oneplatform
+    category: Samples
+    restApi: true
+
+endpoints:
+  spring:
+    cloud:
+      bus:
+        env:
+          enabled: true
+        refresh:
+          enabled: true
+
+hystrix:
+  threadpool:
+    default:
+      coreSize: 50
+      maxQueueSize: 100
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+  command.masterMerchant:
+    execution.isolation.thread.timeoutInMilliseconds: 10000
+    circuitBreaker.forceClosed: true
+  command.merchantSearch:
+    execution.isolation.thread.timeoutInMilliseconds: 60000
+    circuitBreaker.forceClosed: true
+  command.createMasterMerchantRecord:
+    execution.isolation.thread.timeoutInMilliseconds: 30000
+    circuitBreaker.forceClosed: true
+  command.getAccountCalls:
+    execution.isolation.thread.timeoutInMilliseconds: 15000
+    circuitBreaker.forceClosed: true
+  command.getProcessingAccountBySource:
+    execution.isolation.thread.timeoutInMilliseconds: 15000
+    circuitBreaker.forceClosed: true
+  command.getProcessingAccountIdsByPmle:
+    execution.isolation.thread.timeoutInMilliseconds: 15000
+    circuitBreaker.forceClosed: true
+  command.dataController:
+    execution.isolation.thread.timeoutInMilliseconds: 300000
+    circuitBreaker.forceClosed: true
+  command.validationCalls:
+    execution.isolation.thread.timeoutInMilliseconds: 60000
+    circuitBreaker.forceClosed: true
+
+server:
+  shutdown: "graceful"
+
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: "30s"
+  profiles:
+    active: no-auth
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+  output:
+    ansi:
+      enabled: detect
+  rabbitmq:
+    addresses: ${vcap.services.rabbitmq-service.credentials.uri:localhost:5672}
+    username:  ${vcap.services.rabbitmq-service.credentials.username:oneplatform}
+    password: ${vcap.services.rabbitmq-service.credentials.password:test1234}
+    virtual-host: ${vcap.services.rabbitmq-service.credentials.virtualhost:localPlatform}
+  datasource:
+    dataSourceClassName: oracle.jdbc.pool.OracleConnectionPoolDataSource
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: ${datasource.url:jdbc:oracle:thin:@//192.168.56.102:1521/orcl}
+    username: ${datasource.username:mmchttxn}
+    password: ${datasource.password:mmchtisnice}
+    connectionTimeout: ${datasource.connection.timeout:30000}
+    maxLifetime: ${datasource.max.lifetime:28000000}
+    maximumPoolSize: ${datasource.maximum.pool.size:25}
+    cachePrepStmts: ${datasource.cache.prep.stmts:true}
+    prepStmtCacheSize: ${datasource.prep.stmt.cache.size:250}
+    prepStmtCacheSqlLimit: ${datasource.prep.stmt.cache.sql.limit:2048}
+    useServerPrepStmts: ${datasource.use.server.prep.stms:true}
+  liquibase:
+    enabled: false
+    contexts: ${deployment.environment.name}
+    change-log: classpath:db/mmcht/changelog/db.changelog-master.yaml
+  jpa:
+    database: ORACLE
+    show-sql: true
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.Oracle10gDialect
+        id:
+          new_generator_mappings: true
+        show_sql: true
+        connection:
+          autocommit: true
+          release_mode: after_transaction
+        jdbc:
+          batch_size: 1000
+          batch_versioned_data: true
+        order_inserts: true
+        order_updates: true
+  main:
+    allow-bean-definition-overriding: true
+
+async:
+  executor:
+    logUncaughtExceptions: true
+
+deployment:
+  environment:
+    name: ${deployment.environment:local}
+
+metrics:
+  jmx.enabled: true
+  spark:
+    enabled: false
+    host: localhost
+    port: 9999
+  graphite:
+    enabled: false
+    host: localhost
+    port: 2003
+    prefix: jhipster
+
+cache:
+  timeToLiveSeconds: 3600
+  ehcache:
+    maxBytesLocalHeap: 16M
+
+json-path-configuration:
+  groupResponseMappings:
+    merchantId:
+      path: $.id
+      type: STRING
+    merchantName:
+      path: $.name
+      type: STRING
+    merchantType:
+      path: $.type
+      type: STRING
+    emails:
+      path: $.paymentAccounts[*].processingAccounts[*].businessOwners[*].person.email
+      type: LIST
+    processingAccountId:
+      path: $.paymentAccounts[*].processingAccounts[*].id
+      type: STRING
+    merchantLegalEntity:
+      path: $.paymentAccounts[*].processingAccounts[*].businessDetails.legalEntity.description
+      type: STRING
+    paymentAccountId:
+      path: $.paymentAccounts[*].id
+      type: STRING
+    acquirerNames:
+      path: $.paymentAccounts[*].processingAccounts[*].cardConfiguration.cardTypes[*].acquirer.name
+      type: LIST
+    paymentAccountStatus:
+      path: $.paymentAccounts[*].status.code
+      type: STRING
+    processingAccountStatus:
+      path: $.paymentAccounts[*].processingAccounts[*].status.code
+      type: STRING
+    paymentAccountCurrency:
+      path: $.paymentAccounts[*].currency
+      type: STRING
+    processingAccountCurrency:
+      path: $.paymentAccounts[*].processingAccounts[*].currency
+      type: STRING
+    zip:
+      path: $.paymentAccounts[*].processingAccounts[*].businessDetails.tradeAddress.zip
+      type: LIST
+    state:
+      path: $.paymentAccounts[*].processingAccounts[*].businessDetails.tradeAddress.state
+      type: LIST
+    country:
+      path: $.paymentAccounts[*].processingAccounts[*].businessDetails.tradeAddress.country
+      type: LIST
+    bank:
+      path: $.paymentAccounts[*].processingAccounts[*].cardConfiguration.cardTypes[*].settlementBank.name
+      type: LIST
+    paymentAccountCreationDate:
+      path: $.paymentAccounts[*].creationDateEs
+      type: STRING
+    processingAccountCreationDate:
+      path: $.paymentAccounts[*].processingAccounts[*].creationDateEs
+      type: STRING
+    gateway:
+      path: $.paymentAccounts[*].processingAccounts[*].gateway
+      type: STRING
+    accountGroups:
+      path: $.paymentAccounts[*].processingAccounts[*].businessDetails.accountGroups
+      type: LIST
+    mids:
+      path: $.paymentAccounts[*].processingAccounts[*].cardConfiguration.cardTypes[*].acquirer.mid
+      type: LIST
+
+app:
+  mtr-mcht:
+    fileProcessingJobFlag: ${fileProcessingJobFlag:false}
+    decryptionDeleteFlag: ${decryptionDeleteFlag:true}
+    fileProcessingCron: ${fileProcessingCron:0 0 6 1/1 * ? *}
+    sftpHost: ${sftpHost:209.167.11.21}
+    sftpUser: ${sftpUser:cgymapr}
+    fetchDenormalizedMerchantMaxCount: ${fetchDenormalizedMerchantMaxCount:1000}
+
+data-load:
+  netbanx:
+    enabled: ${enabled:false}
+    cronExpression: ${cronExpression:0 5 0/4 ? * * *}
+    springSchedulerCronExpression: ${springSchedulerCronExpression:0 5 0/4 ? * *}
+    hostName: ${hostName:#{null}}
+    loadFullData: ${loadFullData:false}
+    recordsPerPage: ${recordsPerPage:500}
+    fullLoadDateTime: ${fullLoadDateTime:01-JAN-1980 01:01:01}
+    validateProcessingAccounts: ${validateProcessingAccounts:false}
+    deltaLoadSanityTimeInMinutes: ${deltaLoadSanityTimeInMinutes:1440}
+    estToUtcDiffInMinutes: ${estToUtcDiffInMinutes:300}
+    setupUnityAccount: ${setupUnityAccount:false}
+    nodeOrderForDailyJob: ${nodeOrderForDailyJob:2}
+    oraclfncconfig:
+      fetchContacts: ${fetchContacts:Y}
+      fetchTxnOptions: ${fetchTxnOptions:Y}
+      fetchCardConfigs: ${fetchCardConfigs:Y}
+      fetchAgents: ${fetchAgents:Y}
+      fetchServices: ${fetchServices:Y}
+      fetchDestinationBank: ${fetchDestinationBank:Y}
+      fetchSourceBank: ${fetchSourceBank:Y}
+      fetchPaymentSchedule: ${fetchPaymentSchedule:Y}
+      fetchConsolidatedAccounts: ${fetchConsolidatedAccounts:Y}
+      fetchLinkedAccounts: ${fetchLinkedAccounts:Y}
+      fetchThresholds: ${fetchThresholds:Y}
+      fetchRevenueAgreements: ${fetchRevenueAgreements:Y}
+      fetchProductConfig: ${fetchProductConfig:Y}
+      fetchAccountStatusHistory: ${fetchAccountStatusHistory:Y}
+      fetchPaymentScheduleHistory: ${fetchPaymentScheduleHistory:Y}
+
+  irvine:
+    enabled: ${enabled:false}
+    hourlyJobEnabled: ${enabled:true}
+    dailyJobEnabled: ${enabled:true}
+    mppDataJobEnabled: ${enabled:true}
+    loadFullData: ${loadFullData:true}
+    loadLastNoOfDays: ${loadLastNoOfDays:1}
+    fullLoadDateTime: ${fullLoadDateTime:01-JAN-1980 01:01:01}
+    cronExpression: ${cronExpression:0 0 6 1/1 * ? *}
+    springSchedulerCronExpression: ${springSchedulerCronExpression:0 30 8 1/1 * ?}
+    nodeOrderForDailyJob: ${nodeOrderForDailyJob:0}
+    nodeOrderForHourlyJob: ${nodeOrderForHourlyJob:1}
+    nodeOrderForMppJob: ${nodeOrderForMppJob:0}
+    springScheduler:
+      dailyLoadCronExpression: ${dailyLoadCronExpression:0 30 8 1/1 * ?}
+      hourlyLoadCronExpression: ${hourlyLoadCronExpression:0 14 0/1 1/1 * ?}
+      dataLoadCronExpression: ${dataLoadCronExpression:0 30 10 1/1 * ?}
+    hostName: ${hostName:#{null}}
+    decryptionDeleteFlag: ${decryptionDeleteFlag:true}
+    maprCluster: ${maprCluster:demo.mapr.com}
+    sftpHost: ${sftpHost:209.167.11.21}
+    sftpUser: ${sftpUser:cgymapr}
+    doSendMerchantIdsToStream: ${doSendMerchantIdsToStream:true}
+    merchantEntityFields: ${merchantEntityFields:id}
+    maxRecordsInMap: ${maxRecordsInMap:1000}
+  neteller:
+    accountIdRegEx: ${accountIdRegEx:^[0-9]*_[A-Z]{3}}
+    loadFullData: ${loadFullData:true}
+    recordsPerPage: ${recordsPerPage:500}
+  elasticsearch:
+    readIndexName: ${readIndexName:processingaccounts}
+    writeIndexName: ${writeIndexName:processingaccounts}
+
+
+data-store:
+  fetchPmleMappingsFromElastic: ${fetchPmleMappingsFromElastic:true}
+  fetchProcessingAccountsFromElastic: ${fetchProcessingAccountsFromElastic:true}
+  fetchPaymentAccountsFromElastic: ${fetchPaymentAccountsFromElastic:true}
+  readIndexName: ${readIndexName:mastermerchantaccounts}
+  writeIndexName: ${writeIndexName:mastermerchantaccounts}
+  documentType: ${documentType:searchData}
+  enabledRefMappingValidation: ${enabledRefMappingValidation:true}
+
+
+merchant-tag:
+  eeaBankCode: ${eeaBankCode:OPL}
+  eeaLegalEntityCode: ${eeaLegalEntityCode:89}
+  nonEeaBankCode: ${nonEeaBankCode:OPL}
+  nonEeaLegalEntityCode: ${nonEeaLegalEntityCode:79}
+  igamingRegionCode: ${igamingRegionCode:US}
+  igamingMccList: ${igamingMccList:7800,7801,7802}
+  skrillGamingRegionCode: ${skrillGamingRegionCode:US}
+  skrillGamingMccList: ${skrillGamingMccList:5816,7994}
+  ecomPartnerIdsList: ${eComPartnerIdsList:25204}
+
+rs2:
+  enabled: true
+  bankCode: OPL
+
+spring-scheduler:
+  enabled: false
+  serviceId: paysafe-master-merchant
+  nodeIdentifierMethodName: getHostName
+
+custom-attribute:
+  unityOnboardedMerchantsMap:
+    0000000000: true
+
+oneplatform:
+  environment: ${environment:local}
+  dataCentre: ${dataCentre:HYD}
+
+logging:
+  config: classpath:logback.xml
+
+configurations:
+  awsRegion: ${awsRegion:ca-central-1}
+  awsS3Bucket: ${awsS3Bucket:paysafe-unity-netbanx-mgr-1-541292993345-ca-central-1}
+  awsSessionname: ${awsSessionname:mm-fileprocessing}
+
+s3:
+  volume:
+    bucketName: ${bucketName:GMM/irvine/fuzzyMerchants/files}
+---
+spring:
+  profiles: local
+
+logging:
+  config: classpath:logback-local.xml

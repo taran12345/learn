@@ -1,0 +1,326 @@
+@code{def nullSafeSet(input) { return com.paysafe.mastermerchant.util.MasterMerchantCommonUtil.nullSafe(input); }}
+
+{
+  "id": "@{paymentAccountId}",
+  "groupId": "@{groupId}",
+  "name": null,
+  "type": "MERCHANT",
+  "status": null,
+  "currency": @{nullSafeSet(?paymentCurrency)},
+  "locale": @{nullSafeSet(?locale)},
+  "region": null,
+  "labels": [],
+  "configuration": null,
+  "linkedAccounts": [
+      @foreach{linkedAcct : linkedAccounts}
+      {
+        "linkAccountNumber": @{nullSafeSet(?linkedAcct.get('linkAccountNumber'))},
+        "accountName": @{nullSafeSet(?linkedAcct.get('accountName'))},
+        "accountStatus": @{nullSafeSet(?linkedAcct.get('accountStatus'))},
+        "accountCategory": @{nullSafeSet(?linkedAcct.get('accountCategory'))},
+        "settlementCurrency": @{nullSafeSet(?linkedAcct.get('settlementCurrency'))},
+        "processingCurrency": @{nullSafeSet(?linkedAcct.get('processingCurrency'))}
+      }
+      @end{','}
+  ],
+  "consolidatedAccounts": [
+      @foreach{consolidatedAcct : consolidatedAccounts}
+      {
+        "accountNumber": @{nullSafeSet(?consolidatedAcct.get('accountNumber'))},
+        "accountName": @{nullSafeSet(?consolidatedAcct.get('accountName'))},
+        "accountStatus": @{nullSafeSet(?consolidatedAcct.get('accountStatus'))},
+        "settlementCurrency": @{nullSafeSet(?consolidatedAcct.get('settlementCurrency'))},
+        "processingCurrency": @{nullSafeSet(?consolidatedAcct.get('processingCurrency'))},
+        "minimumAmount": @{nullSafeSet(?consolidatedAcct.get('minimumAmount'))},
+        "minimumFloatAmount": @{nullSafeSet(?consolidatedAcct.get('minimumFloatAmount'))},
+        "daysInArrears": @{nullSafeSet(?consolidatedAcct.get('daysInArrears'))},
+        "daysInArrearsType": @{nullSafeSet(?consolidatedAcct.get('daysInArrearsType'))},
+        "paymentOnHoldFlag": @{nullSafeSet(?consolidatedAcct.get('paymentOnHold'))},
+        "paymentOnHoldReasonCode": @{nullSafeSet(?consolidatedAcct.get('paymentOnHoldReasonCode'))},
+        "paymentOnHoldReason": @{nullSafeSet(?consolidatedAcct.get('paymentOnHoldReason'))}
+      }
+      @end{','}
+  ],
+  "revenueAgreement":  {
+    @if{?revenueAgreement != null}
+      "name": @{nullSafeSet(?revenueAgreement.get('revenueAgreementName'))},
+      "programId": null,
+      "agreementCategory": "TRANSACTIONAL",
+
+      @if{nullSafeSet(?revenueAgreement.get('currency')) != "\"\""}
+      "currency": @{nullSafeSet(?revenueAgreement.get('currency'))},
+      @end{}
+
+      "agreementType": "REVENUE",
+      "accountId": @{nullSafeSet(?revenueAgreement.get('accountId'))},
+      "effectiveStartDate": @{nullSafeSet(?revenueAgreement.get('effectiveDate'))},
+      "fees": [
+        @foreach{agreementFee : revenueAgreement.get('revenueAgreementFees')}
+        {
+          "feeName": @{nullSafeSet(?agreementFee.get('feeName'))},
+          "feeCode": @{nullSafeSet(?agreementFee.get('feeCode'))},
+          "type": @{nullSafeSet(?agreementFee.get('type'))},
+          "isEnabled": @{nullSafeSet(?agreementFee.get('isEnabled'))},
+          "feeStructure": {
+            "min": null,
+            "max": null,
+            "aggregationDimension": @{nullSafeSet(?agreementFee.get('feeValue'))},
+            "percentageSource": "transactionAmount",
+            "feeCurrency": null,
+            "type": "DEFAULT_FEE",
+            "amount" : @{nullSafeSet(?agreementFee.get('amount'))},
+            "percent" : @{nullSafeSet(?agreementFee.get('percent'))}
+          }
+        }
+        @end{','}
+      ],
+      "productFeeConfigs":{
+        @if{?productConfigDetails != null}
+          @{'"'}@{revenueAgreement.get('product')}@{'"'}: [
+            @foreach{productConfigDetail : productConfigDetails}
+            {
+              "productConfig": {
+
+                "product" : @{nullSafeSet(?productConfigDetail.get('product'))},
+                @if{revenueAgreement.get('product') == 'CARD'}
+                "cardType" : @{nullSafeSet(?productConfigDetail.get('cardType'))},
+                "cardCategory" : @{nullSafeSet(?productConfigDetail.get('category'))}
+                @else{revenueAgreement.get('product') == 'BANK'}
+                "bankTransferMethod" : "BANK",
+
+                  @if{productConfigDetail.get('qualifier') == 'G'}
+                    "bankTransferType": "ECHECK_GUARANTEED"
+                  @else{}
+                    "bankTransferType": "ECHECK"
+                  @end{}
+
+                @else{revenueAgreement.get('product') == 'APM'}
+                "apmName" : "APM"
+                @end{}
+              },
+              "pricingType": @{nullSafeSet(?productConfigDetail.get('pricingType'))},
+              "fees": [
+                @foreach{productConfigFee : productConfigDetail.get('productConfigFees')}
+                {
+                  "feeName": @{nullSafeSet(?productConfigFee.get('feeName'))},
+                  "feeCode": @{nullSafeSet(?productConfigFee.get('feeCode'))},
+                  "type": @{nullSafeSet(?productConfigFee.get('type'))},
+                  "isEnabled": @{nullSafeSet(?productConfigFee.get('isEnabled'))},
+                  "feeStructure": {
+                    "min": null,
+                    "max": null,
+                    "aggregationDimension": @{nullSafeSet(?productConfigFee.get('feeValue'))},
+                    "percentageSource": "transactionAmount",
+                    "feeCurrency": null,
+                    "type": "DEFAULT_FEE",
+                    "amount" : @{nullSafeSet(?productConfigFee.get('amount'))},
+                    "percent" : @{nullSafeSet(?productConfigFee.get('percent'))}
+                  }
+                }
+                @end{','}
+              ]
+            }
+            @end{','}
+          ]
+        @end{}
+      }
+    @end{','}
+  },
+  "processingAccountIds": ["@{processingAccountId}"],
+  "processingAccounts": [],
+  "paymentSchedules": [{
+    "paymentVehicle": @{nullSafeSet(?sourceBank.get('paymentVehicle'))},
+    "parentAccountId": @{nullSafeSet(?paymentSchedule.get('parentAccount'))},
+    "status": {
+      "code": @{nullSafeSet(?paymentSchedule.get('accountStatus'))},
+      "reason": null,
+      "comment": null
+    },
+    "scheduleType": @{nullSafeSet(?paymentSchedule.get('schedule'))},
+    "frequency": @{nullSafeSet(?paymentSchedule.get('frequency'))},
+    "nextPaymentDate": @{nullSafeSet(?paymentSchedule.get('nextPaymentDate'))},
+    "lastPaymentDate": @{nullSafeSet(?paymentSchedule.get('lastPaymentDate'))},
+    "minimumAmount": @{nullSafeSet(?paymentSchedule.get('minimumAmount'))},
+    "maximumAmount": @{nullSafeSet(?paymentSchedule.get('maximumAmount'))},
+    "minimumFloatAmount": @{nullSafeSet(?paymentSchedule.get('minimumFloatAmount'))},
+    "daysInArrears": @{nullSafeSet(?paymentSchedule.get('daysInArrears'))},
+    "daysInArrearsType": @{nullSafeSet(?paymentSchedule.get('daysInArrearsType'))},
+    "paymentsOnHold": @{nullSafeSet(?paymentSchedule.get('paymentsOnHold'))},
+    "paymentOnHoldReasonCode": @{nullSafeSet(?paymentSchedule.get('paymentOnHoldReasonCode'))},
+    "paymentOnHoldReason": @{nullSafeSet(?paymentSchedule.get('paymentOnHoldReason'))},
+    "allowPayments": @{nullSafeSet(?paymentSchedule.get('allowPayments'))},
+    "allowDebits": @{nullSafeSet(?paymentSchedule.get('allowDebits'))},
+    "allowAddPayment": @{nullSafeSet(?paymentSchedule.get('allowAddPayment'))},
+    "consolidatedOnly": @{nullSafeSet(?paymentSchedule.get('consolidatedOnly'))},
+    "customDescriptor": @{nullSafeSet(?paymentSchedule.get('customDescriptor'))},
+    "descriptor": @{nullSafeSet(?paymentSchedule.get('customDescriptorPrefix'))},
+    "nextDayFunding": @{nullSafeSet(?paymentSchedule.get('nextDayFunding'))},
+    "destinationBankCountry": @{nullSafeSet(?destinationBank.get('country'))},
+    "destinationBankCurrency": @{nullSafeSet(?destinationBank.get('currency'))},
+    "approved": @{nullSafeSet(?destinationBank.get('approved'))},
+    "source": {
+      "accountNumber": @{nullSafeSet(?sourceBank.get('accountNumberEncrypted'))},
+      "accountNumberHash": @{nullSafeSet(?sourceBank.get('accountNumberHash'))},
+      "accountNumberLastDigits": @{nullSafeSet(?sourceBank.get('accountNumberLastDigits'))},
+      "bankCode": @{nullSafeSet(?sourceBank.get('bankCode'))},
+      "bankName": @{nullSafeSet(?sourceBank.get('bankDescription'))},
+      "routingNumber": @{nullSafeSet(?sourceBank.get('routingNumber'))},
+      "currency": @{nullSafeSet(?sourceBank.get('currency'))},
+      "flowOfFunds": @{nullSafeSet(?sourceBank.get('flowOfFunds'))},
+      "acceptDebit": @{nullSafeSet(?sourceBank.get('acceptDebit'))},
+      "format": @{nullSafeSet(?sourceBank.get('format'))},
+      "navisionCode": @{nullSafeSet(?sourceBank.get('navisionCode'))}
+    },
+    "destination": {
+      @if{?sourceBank.get('paymentVehicle') == 'EFT'}
+      "eft": {
+        "id": @{nullSafeSet(?destinationBank.get('id'))},
+        "accountNumber": @{nullSafeSet(?destinationBank.get('accountNumberEncrypted'))},
+        "accountNumberHash": @{nullSafeSet(?destinationBank.get('accountNumberHash'))},
+        "accountNumberLastDigits": @{nullSafeSet(?destinationBank.get('accountNumberLastDigits'))},
+        "transitNumber": @{nullSafeSet(?destinationBank.get('routingNumber'))}
+      }
+      @else{?sourceBank.get('paymentVehicle') == 'SEPA'}
+      "sepa": {
+        "id": @{nullSafeSet(?destinationBank.get('id'))},
+        "beneficiaryBankCountry": @{nullSafeSet(?destinationBank.get('beneficiaryBankCountry'))},
+        "swiftNumber": @{nullSafeSet(?destinationBank.get('swiftNumber'))},
+        "ibanNumber": @{nullSafeSet(?destinationBank.get('ibanNumber'))}
+      }
+      @else{(?sourceBank.get('paymentVehicle') == 'WIRE') || (?sourceBank.get('paymentVehicle') == 'WIRE-SMA/SWIFT')}
+      "wire": {
+        "id": @{nullSafeSet(?destinationBank.get('id'))},
+        "swiftNumber": @{nullSafeSet(?destinationBank.get('swiftNumber'))},
+        "ibanNumber": @{nullSafeSet(?destinationBank.get('ibanNumber'))},
+        "accountNumber": @{nullSafeSet(?destinationBank.get('accountNumberEncrypted'))},
+        "accountNumberHash": @{nullSafeSet(?destinationBank.get('accountNumberHash'))},
+        "accountNumberLastDigits": @{nullSafeSet(?destinationBank.get('accountNumberLastDigits'))},
+        "routingNumber": @{nullSafeSet(?destinationBank.get('routingNumber'))},
+        "narrative": @{nullSafeSet(?destinationBank.get('narrative'))},
+        "beneficiaryName": @{nullSafeSet(?destinationBank.get('beneficiaryName'))},
+        "beneficiaryAccount": @{nullSafeSet(?destinationBank.get('beneficiaryAccountEncrypted'))},
+        "beneficiaryAccountHash": @{nullSafeSet(?destinationBank.get('beneficiaryAccountHash'))},
+        "beneficiaryAccountLastDigits": @{nullSafeSet(?destinationBank.get('beneficiaryAccountLastDigits'))},
+        "beneficiaryCountry": @{nullSafeSet(?destinationBank.get('beneficiaryCountry'))},
+        "beneficiaryCurrency": @{nullSafeSet(?destinationBank.get('beneficiaryCurrency'))},
+        "beneficiaryAddress": @{nullSafeSet(?destinationBank.get('beneficiaryAddress'))},
+        "beneficiaryAddress1": @{nullSafeSet(?destinationBank.get('beneficiaryAddress1'))},
+        "beneficiaryBankCountry": @{nullSafeSet(?destinationBank.get('beneficiaryBankCountry'))},
+        "beneficiaryBankName": @{nullSafeSet(?destinationBank.get('beneficiaryBankName'))},
+        "beneficiaryBankAddress": @{nullSafeSet(?destinationBank.get('beneficiaryBankAddress'))},
+        "beneficiaryBankAddress1": @{nullSafeSet(?destinationBank.get('beneficiaryBankAddress1'))},
+        "beneficiaryBankSwift": @{nullSafeSet(?destinationBank.get('beneficiaryBankSwift'))},
+        "beneficiaryBankRouting": @{nullSafeSet(?destinationBank.get('beneficiaryBankRouting'))},
+        "beneficiaryBankIban": @{nullSafeSet(?destinationBank.get('beneficiaryBankIbanEncrypted'))},
+        "beneficiaryBankIbanHash": @{nullSafeSet(?destinationBank.get('beneficiaryBankIbanHash'))},
+        "beneficiaryBankIbanLastDigits": @{nullSafeSet(?destinationBank.get('beneficiaryBankIbanLastDigits'))},
+        "intermediaryBankName": @{nullSafeSet(?destinationBank.get('intermediaryBankName'))},
+        "intermediaryBankAddress": @{nullSafeSet(?destinationBank.get('intermediaryBankAddress'))},
+        "intermediaryBankAddress1": @{nullSafeSet(?destinationBank.get('intermediaryBankAddress1'))},
+        "intermediaryBankCountry": @{nullSafeSet(?destinationBank.get('intermediaryBankCountry'))},
+        "intermediaryBankSwift": @{nullSafeSet(?destinationBank.get('intermediaryBankSwift'))},
+        "intermediaryBankRouting": @{nullSafeSet(?destinationBank.get('intermediaryBankRouting'))}
+      }
+      @else{?sourceBank.get('paymentVehicle') == 'ACH'}
+      "ach": {
+        "id": @{nullSafeSet(?destinationBank.get('id'))},
+        "accountNumber": @{nullSafeSet(?destinationBank.get('accountNumberEncrypted'))},
+        "accountNumberHash": @{nullSafeSet(?destinationBank.get('accountNumberHash'))},
+        "accountNumberLastDigits": @{nullSafeSet(?destinationBank.get('accountNumberLastDigits'))},
+        "routingNumber": @{nullSafeSet(?destinationBank.get('routingNumber'))}
+      }
+      @else{?sourceBank.get('paymentVehicle') == 'BACS'}
+      "bacs": {
+        "id": @{nullSafeSet(?destinationBank.get('id'))},
+        "accountNumber": @{nullSafeSet(?destinationBank.get('accountNumberEncrypted'))},
+        "accountNumberHash": @{nullSafeSet(?destinationBank.get('accountNumberHash'))},
+        "accountNumberLastDigits": @{nullSafeSet(?destinationBank.get('accountNumberLastDigits'))},
+        "routingNumber": @{nullSafeSet(?destinationBank.get('routingNumber'))},
+        "beneficiaryBankCountry": @{nullSafeSet(?destinationBank.get('beneficiaryBankCountry'))}
+      }
+      @else{?sourceBank.get('paymentVehicle') == 'AIB'}
+      "aib": {
+        "id": @{nullSafeSet(?destinationBank.get('id'))},
+        "swiftNumber": @{nullSafeSet(?destinationBank.get('swiftNumber'))},
+        "ibanNumber": @{nullSafeSet(?destinationBank.get('ibanNumber'))},
+        "accountNumber": @{nullSafeSet(?destinationBank.get('accountNumberEncrypted'))},
+        "accountNumberHash": @{nullSafeSet(?destinationBank.get('accountNumberHash'))},
+        "accountNumberLastDigits": @{nullSafeSet(?destinationBank.get('accountNumberLastDigits'))},
+        "routingNumber": @{nullSafeSet(?destinationBank.get('routingNumber'))}
+      }
+      @else{?sourceBank.get('paymentVehicle') == 'NAB'}
+      "nab": {
+        "id": @{nullSafeSet(?destinationBank.get('id'))},
+        "accountNumber": @{nullSafeSet(?destinationBank.get('accountNumberEncrypted'))},
+        "accountNumberHash": @{nullSafeSet(?destinationBank.get('accountNumberHash'))},
+        "accountNumberLastDigits": @{nullSafeSet(?destinationBank.get('accountNumberLastDigits'))},
+        "routingNumber": @{nullSafeSet(?destinationBank.get('routingNumber'))}
+      }
+      @else{?sourceBank.get('paymentVehicle') == 'EDI'}
+      "edi": {
+        "id": @{nullSafeSet(?destinationBank.get('id'))},
+        "accountNumber": @{nullSafeSet(?destinationBank.get('accountNumberEncrypted'))},
+        "accountNumberHash": @{nullSafeSet(?destinationBank.get('accountNumberHash'))},
+        "accountNumberLastDigits": @{nullSafeSet(?destinationBank.get('accountNumberLastDigits'))},
+        "routingNumber": @{nullSafeSet(?destinationBank.get('routingNumber'))}
+      }
+      @end{}
+    }
+  }],
+  "paymentScheduleHistory": [
+    @foreach{paymentScheduleLog : paymentScheduleHistory}
+    {
+      "frequencyType": @{nullSafeSet(?paymentScheduleLog.get('paymentFreqType'))},
+      "frequency": @{nullSafeSet(?paymentScheduleLog.get('paymentFreq'))},
+      "daysInArrears": @{nullSafeSet(?paymentScheduleLog.get('daysInArears'))},
+      "daysInArrearsType": @{nullSafeSet(?paymentScheduleLog.get('daysInArearsType'))},
+      "paymentsOnHold": @{nullSafeSet(?paymentScheduleLog.get('isPaymentOnHold'))},
+      "paymentOnHoldReason": @{nullSafeSet(?paymentScheduleLog.get('paymentOnHoldReason'))},
+      "modifiedOn": @{nullSafeSet(?paymentScheduleLog.get('modifiedOn'))},
+      "modifiedBy": @{nullSafeSet(?paymentScheduleLog.get('modifiedBy'))}
+    }
+    @end{','}
+  ],
+  "thirdPartyServices": null,
+  "contacts": [
+      @foreach{contact : contacts}
+      {
+        "firstName": @{nullSafeSet(?contact.get('firstName'))},
+        "middleName": @{nullSafeSet(?contact.get('middleName'))},
+        "lastName": @{nullSafeSet(?contact.get('lastName'))},
+        "email": @{nullSafeSet(?contact.get('email'))},
+        "jobTitle": @{nullSafeSet(?contact.get('jobTitle'))},
+        "isCustomerCare": @{nullSafeSet(?contact.get('isCustomerCare'))},
+        "isTech": @{nullSafeSet(?contact.get('isTech'))},
+        "isPrimary": @{nullSafeSet(?contact.get('isPrimary'))},
+        "creationDate": @{nullSafeSet(?contact.get('creationDate'))},
+        "modificationDate": @{nullSafeSet(?contact.get('modificationDate'))},
+        "phone": {
+                  "number": @{nullSafeSet(?contact.get('mobilePhoneNumber'))},
+                  "extension": null,
+                  "countryCode": null
+                  },
+        "homePhone": {
+                      "number": @{nullSafeSet(?contact.get('homePhoneNumber'))},
+                      "extension": null,
+                      "countryCode": null
+                      },
+        "workPhone": {
+                      "number": @{nullSafeSet(?contact.get('workPhoneNumber'))},
+                      "extension": null,
+                      "countryCode": null
+                     }
+      }
+      @end{','}
+  ],
+  "creationDate": {
+    "day": null,
+    "month": null,
+    "year": null
+  },
+  "sourceAuthority": {
+    "origin": "NETBANX",
+    "location": "MONTREAL",
+    "referenceId": "@{accountId}"
+  }
+}

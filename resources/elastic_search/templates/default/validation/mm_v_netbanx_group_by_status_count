@@ -1,0 +1,66 @@
+{
+  "template": {
+    "size": 0,
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "nested": {
+              "path": "paymentAccounts",
+              "query": {
+                "nested": {
+                  "path": "paymentAccounts.processingAccounts",
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "term": {
+                            "paymentAccounts.processingAccounts.sourceAuthority.origin.keyword": "NETBANX"
+                          }
+                        },
+                        {
+                          "exists": {
+                            "field": "paymentAccounts.processingAccounts.sourceAuthority.referenceId"
+                          }
+                        }
+                      ],
+                      "must_not": [
+                        {
+                          "wildcard": {
+                            "paymentAccounts.processingAccounts.businessDetails.tradeName.keyword": "*_*"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "aggs": {
+      "payment_nested": {
+        "nested": {
+          "path": "paymentAccounts"
+        },
+        "aggs": {
+          "processing_nested": {
+            "nested": {
+              "path": "paymentAccounts.processingAccounts"
+            },
+            "aggs": {
+              "type": {
+                "terms": {
+                  "field": "paymentAccounts.processingAccounts.status.code.keyword",
+                  "size": 100
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

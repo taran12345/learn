@@ -1,0 +1,60 @@
+databaseChangeLog:
+  - changeSet:
+      id: GMO_10494_tables
+      author: unknown
+      dbms: oracle, hsqldb
+      changes:
+        - createTable:
+            tableName: GROUPS_DATA
+            columns:
+              - column:
+                  name: ID
+                  type: VARCHAR2(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: DATA
+                  type: clob
+                  constraints:
+                    nullable: false
+              - column:
+                  name: CREATED_BY
+                  type: VARCHAR2(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: CREATED_DATE
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: LAST_MODIFIED_BY
+                  type: VARCHAR2(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: LAST_MODIFIED_DATE
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+
+      modifySql:
+        - replace:
+            replace: TIMESTAMP
+            with: TIMESTAMP WITH TIME ZONE
+  - changeSet:
+      id: GMO_10494_tables_01
+      author: unknown
+      dbms: oracle
+      changes:
+        - sql:
+            sql: grant select, insert, update, delete on GROUPS_DATA to ${liquibase.schema}_rw
+        - sql:
+            sql: grant select on GROUPS_DATA to ${liquibase.schema}_ro
+  - changeSet:
+      id: GMO_10494_tables_02
+      author: unknown
+      dbms: oracle
+      changes:
+        - sql:
+            sql: CREATE OR REPLACE SYNONYM ${liquibase.schema}txn.GROUPS_DATA FOR ${liquibase.schema}.GROUPS_DATA

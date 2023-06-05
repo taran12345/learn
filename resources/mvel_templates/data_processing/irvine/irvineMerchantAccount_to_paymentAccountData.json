@@ -1,0 +1,62 @@
+@code{def getBoolean(input) { return com.paysafe.mastermerchant.util.MasterMerchantCommonUtil.getBoolean(input); }}
+{
+  "id": @{nullSafeSet(?merchant.get('paymentAccountId'))},
+  "groupId": @{nullSafeSet(?merchant.get('groupId'))},
+  "name": @{nullSafeSet(?merchant.get('accountName'))},
+  "type": "MERCHANT",
+  "status": null,
+  "currency": @{nullSafeSet(?merchant.get('destinationBank_currancy'))},
+  "locale": null,
+  "processingAccountIds": [@{nullSafeSet(?merchant.get('processingAccountId'))}],
+  "processingAccounts": [],
+  "configuration": {
+    "daysInArrears": @{nullSafeSet(?merchant.get('daysHoldOrArrears'))},
+    "rollingReserve": {
+      "percent": @{nullSafeSet(?merchant.get('reservePercent'))}
+    }
+  },
+  "paymentSchedules": [{
+    "source": {
+      "accountNumber": @{nullSafeSet(?merchant.get('despositAccountNumber'))},
+      "accountNumberHash": @{nullSafeSet(?merchant.get('despositAccountNumber_hash'))},
+      "accountNumberLastDigits": @{nullSafeSet(?merchant.get('despositAccountNumber_lastDigits'))},
+      "routingNumber": @{nullSafeSet(?merchant.get('depositTranRoute'))}
+    },
+    "destination": {
+      "ach": {
+        "accountNumber": @{nullSafeSet(?merchant.get('destinationBank_accountNumber'))},
+        "accountNumberHash": @{nullSafeSet(?merchant.get('destinationBank_accountNumber_hash'))},
+        "accountNumberLastDigits": @{nullSafeSet(?merchant.get('destinationBank_accountNumber_lastDigits'))},
+        "routingNumber": @{nullSafeSet(?merchant.get('destinationBank_routing'))},
+        "accountType": @{nullSafeSet(?merchant.get('accountType'))},
+        "bankName": @{nullSafeSet(?merchant.get('destinationBank_name'))},
+        "descriptor": @{nullSafeSet(?merchant.get('achOrDdDescriptor'))}
+      }
+    }
+  }],
+  "thirdPartyServices": {
+    "cbms": {
+      "isEnabled": @{getBoolean(?merchant.get('cbms'))},
+      "isCbmsPlusEnabled": @{getBoolean(?merchant.get('cbmsPlus'))}
+    },
+    "ethoca": {
+      "isEnabled": @{getBoolean(?merchant.get('ethoca'))}
+    },
+    "fraudXp": {
+      "isEnabled": @{getBoolean(?merchant.get('fraudXp'))}
+    }
+  },
+  "contacts": [{
+    "email": @{nullSafeSet(?merchant.get('merchant_contact_email'))},
+    "firstName": @{nullSafeSet(?merchant.get('merchant_contact_name'))},
+    "jobTitle": @{nullSafeSet(?merchant.get('merchant_contact_title'))},
+    "phone": {
+      "number": @{nullSafeSet(?merchant.get('merchant_contact_phone'))}
+    }
+  }],
+  "sourceAuthority": {
+    "origin": "PAYMENT_XP",
+    "location": "IRVINE",
+    "referenceId": @{nullSafeSet(?merchant.get('_id'))}
+  }
+}

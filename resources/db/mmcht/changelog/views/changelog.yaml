@@ -1,0 +1,12 @@
+# All views should be defined in this file since the view execution order is important.
+databaseChangeLog:
+  - include:
+      file: db/mmcht/changelog/views/organization_address_vw.sql
+  - include:
+      file: db/mmcht/changelog/views/netbanx_merchant_accounts_vw.sql
+  - include:
+      file: db/mmcht/changelog/views/neteller_merchant_accounts_vw.sql
+  - include:
+      file: db/mmcht/changelog/views/validation/nbx_merchant_account_counts_vw.sql
+  - include:
+      file: db/mmcht/changelog/views/validation/accnts_count_grp_by_status_vw.sql

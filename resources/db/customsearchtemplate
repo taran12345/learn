@@ -1,0 +1,98 @@
+curl -X POST http://mtl-qa-elast-111.qa.stp.local:9200/_search/template/customgroupsearch -H 'cache-control: no-cache' -H 'content-type: application/json' -d '{"template":"{   \"query\": { \"bool\": {    \"must\": [    { \"match_all\": {}}{{#merchantId}},{ \"regexp\": {\"id\": \"{{merchantId}}\" }}{{\/merchantId}}  ,{\"nested\": {   \"path\": \"paymentAccounts\",   \"query\": { \"bool\": {    \"must\": [    { \"match_all\": {}}{{#paymentAccountId}},{ \"regexp\": {\"paymentAccounts.id\": \"{{paymentAccountId}}\" }}{{\/paymentAccountId}}{{#paymentAccountCreationDate}},{ \"regexp\": {\"paymentAccounts.creationDateEs\": \"{{paymentAccountCreationDate}}\" }}{{\/paymentAccountCreationDate}}{{#paymentAccountStatus}},{ \"regexp\": {\"paymentAccounts.status\": \"{{paymentAccountStatus}}\" }}{{\/paymentAccountStatus}}{{#paymentAccountType}},{ \"regexp\": {\"paymentAccounts.type\": \"{{paymentAccountType}}\" }}{{\/paymentAccountType}}{{#paymentAccountCurrency}},{ \"regexp\": {\"paymentAccounts.currency.keyword\": \"{{paymentAccountCurrency}}\" }}{{\/paymentAccountCurrency}}  ,{\"nested\": {   \"path\": \"paymentAccounts.processingAccounts\",   \"query\": { \"bool\": {    \"must\": [    { \"match_all\": {}}{{#merchantName}},{ \"regexp\": {\"paymentAccounts.processingAccounts.businessDetails.tradeName\": \"{{merchantName}}\" }}{{\/merchantName}}{{#emails}},{ \"regexp\": {\"paymentAccounts.processingAccounts.businessOwner.person.email\": \"{{emails}}\" }}{{\/emails}}{{#processingAccountId}},{ \"regexp\": {\"paymentAccounts.processingAccounts.id\": \"{{processingAccountId}}\" }}{{\/processingAccountId}}{{#mid}},{ \"regexp\": {\"paymentAccounts.processingAccounts.cardConfiguration.cardTypes.acquirer.mid.keyword\": \"{{mid}}\" }}{{\/mid}}{{#merchantLegalEntity}},{ \"regexp\": {\"paymentAccounts.processingAccounts.businessDetails.merchantLegalEntity\": \"{{merchantLegalEntity}}\" }}{{\/merchantLegalEntity}}{{#acquirerName}},{ \"regexp\": {\"paymentAccounts.processingAccounts.cardConfiguration.cardTypes.acquirer.name\": \"{{acquirerName}}\" }}{{\/acquirerName}}{{#zip}},{ \"regexp\": {\"paymentAccounts.processingAccounts.businessDetails.registeredAddress.zip\": \"{{zip}}\" }}{{\/zip}}{{#state}},{ \"regexp\": {\"paymentAccounts.processingAccounts.businessDetails.registeredAddress.state\": \"{{state}}\" }}{{\/state}}{{#country}},{ \"regexp\": {\"paymentAccounts.processingAccounts.businessDetails.registeredAddress.country\": \"{{country}}\" }}{{\/country}}{{#processingAccountStatus}},{ \"regexp\": {\"paymentAccounts.processingAccounts.status\": \"{{processingAccountStatus}}\" }}{{\/processingAccountStatus}}{{#processingAccountCreationDate}},{ \"regexp\": {\"paymentAccounts.processingAccounts.creationDateEs\": \"{{processingAccountCreationDate}}\" }}{{\/processingAccountCreationDate}}{{#gateway}},{ \"regexp\": {\"paymentAccounts.processingAccounts.gateway\": \"{{gateway}}\" }}{{\/gateway}}{{#accountGroups}},{ \"regexp\": {\"paymentAccounts.processingAccounts.businessDetails.accountGroups\": \"{{accountGroups}}\" }}{{\/accountGroups}}{{#bank}},{ \"regexp\": {\"paymentAccounts.processingAccounts.cardConfiguration.cardTypes.settlementBank.name.keyword\": \"{{bank}}\" }}{{\/bank}}{{#processingAccountCurrency}},{ \"regexp\": {\"paymentAccounts.processingAccounts.currency\": \"{{processingAccountCurrency}}\" }}{{\/processingAccountCurrency}}    ] }   }}  }    ] }   }}  }    ] }   },\"from\" : {{offset}},\"size\" : {{limit}}}"}'
+
+{   "query": 
+	{ "bool": 
+		{    "must": 
+			[    
+				{ "match_all": {}}
+				{{#merchantId}}
+					,{ "match": {"id": "{{merchantId}}" }}
+				{{/merchantId}}  
+				,{"nested": 
+					{   "path": "paymentAccounts",   
+						"query": 
+							{ "bool": 
+								{    "must": 
+									[    
+										{ "match_all": {}}
+										{{#paymentAccountId}}
+											,{ "match": {"paymentAccounts.id": "{{paymentAccountId}}" }}
+										{{/paymentAccountId}}
+										{{#paymentAccountCreationDate}}
+											,{ "match": {"paymentAccounts.creationDateEs": "{{paymentAccountCreationDate}}" }}
+										{{/paymentAccountCreationDate}}
+										{{#paymentAccountStatus}}
+											,{ "match": {"paymentAccounts.status": "{{paymentAccountStatus}}" }}
+										{{/paymentAccountStatus}}
+										{{#paymentAccountType}}
+											,{ "match": {"paymentAccounts.type": "{{paymentAccountType}}" }}
+										{{/paymentAccountType}}
+										{{#paymentAccountCurrency}}
+											,{ "match": {"paymentAccounts.currency.keyword": "{{paymentAccountCurrency}}" }}
+										{{/paymentAccountCurrency}}  
+										,{"nested": 
+											{   "path": "paymentAccounts.processingAccounts",   
+												"query": 
+													{ "bool": 
+														{    "must": 
+															[    { "match_all": {}}
+																 {{#merchantName}}
+																	,{ "match": {"paymentAccounts.processingAccounts.businessDetails.tradeName": "{{merchantName}}" }}
+																 {{/merchantName}}
+																 {{#emails}}
+																	,{ "match": {"paymentAccounts.processingAccounts.businessOwner.person.email": "{{emails}}" }}
+																 {{/emails}}
+																 {{#processingAccountId}}
+																	,{ "match": {"paymentAccounts.processingAccounts.id": "{{processingAccountId}}" }}
+																 {{/processingAccountId}}
+																 {{#mid}}
+																	,{ "match": {"paymentAccounts.processingAccounts.cardConfiguration.cardTypes.acquirer.mid.keyword": "{{mid}}" }}
+																 {{/mid}}
+																 {{#merchantLegalEntity}}
+																	,{ "match": {"paymentAccounts.processingAccounts.businessDetails.merchantLegalEntity": "{{merchantLegalEntity}}" }}
+																 {{/merchantLegalEntity}}
+																 {{#acquirerName}}
+																	,{ "match": {"paymentAccounts.processingAccounts.cardConfiguration.cardTypes.acquirer.name": "{{acquirerName}}" }}
+																 {{/acquirerName}}
+																 {{#zip}}
+																	,{ "match": {"paymentAccounts.processingAccounts.businessDetails.registeredAddress.zip": "{{zip}}" }}
+																 {{/zip}}
+																 {{#state}}
+																	,{ "match": {"paymentAccounts.processingAccounts.businessDetails.registeredAddress.state": "{{state}}" }}
+																 {{/state}}
+																 {{#country}}
+																	,{ "match": {"paymentAccounts.processingAccounts.businessDetails.registeredAddress.country": "{{country}}" }}
+																 {{/country}}
+																 {{#processingAccountStatus}}
+																	,{ "match": {"paymentAccounts.processingAccounts.status": "{{processingAccountStatus}}" }}
+																 {{/processingAccountStatus}}
+																 {{#processingAccountCreationDate}}
+																	,{ "match": {"paymentAccounts.processingAccounts.creationDateEs": "{{processingAccountCreationDate}}" }}
+																 {{/processingAccountCreationDate}}
+																 {{#gateway}}
+																	,{ "match": {"paymentAccounts.processingAccounts.gateway": "{{gateway}}" }}
+																 {{/gateway}}
+																 {{#accountGroups}}
+																	,{ "match": {"paymentAccounts.processingAccounts.businessDetails.accountGroups": "{{accountGroups}}" }}
+																 {{/accountGroups}}
+																 {{#bank}}
+																	,{ "match": {"paymentAccounts.processingAccounts.cardConfiguration.cardTypes.settlementBank.name.keyword": "{{bank}}" }}
+																 {{/bank}}
+																 {{#processingAccountCurrency}}
+																	,{ "match": {"paymentAccounts.processingAccounts.currency": "{{processingAccountCurrency}}" }}
+																 {{/processingAccountCurrency}}    
+															] 
+														}   
+													}
+													
+											}  
+										}   
+								] 
+							}   
+						}
+					} 
+				}    
+			] 
+		}   
+	},"from" : {{offset}},"size" : {{limit}}
+}

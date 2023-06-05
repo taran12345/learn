@@ -1,0 +1,37 @@
+{
+  "template": {
+    "size": 0,
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "nested": {
+              "path": "paymentAccounts",
+              "query": {
+                "nested": {
+                  "path": "paymentAccounts.processingAccounts",
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "term": {
+                            "paymentAccounts.processingAccounts.sourceAuthority.origin.keyword": "PAYMENT_XP"
+                          }
+                        },
+                        {
+                          "exists": {
+                            "field": "paymentAccounts.processingAccounts.sourceAuthority.referenceId"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

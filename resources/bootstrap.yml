@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: paysafe-master-merchant
+  cloud:
+    config:
+      enabled: true
+      discovery:
+        enabled: true
+        serviceId: ONEPLATFORM-CLOUD-CONFIG
+      failFast: true
+  jackson:
+    time-zone: UTC
+
+server:
+  port: ${port:8091}
+
+management:
+  health:
+    elasticsearch:
+      enabled: false
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      show-details: always
+  endpoints:
+    web:
+      base-path: /admin/manage
+      exposure:
+        include: "*"
+
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 5
+    leaseExpirationDurationInSeconds: 10
+    statusPageUrlPath: ${management.endpoints.web.base-path}/info
+    healthCheckUrlPath: ${management.endpoints.web.base-path}/health
+    hostname: ${application.host:localhost}
+    nonSecurePort: ${application.port:${server.port}}
+    metadataMap:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

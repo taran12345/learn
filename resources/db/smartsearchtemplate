@@ -1,0 +1,37 @@
+{"template":"{   \"query\": { \"bool\": {    \"should\": [    { \"regexp\": {\"id\": \"{{smartsearchid}}\" }},{\"nested\": {   \"path\": \"paymentAccounts\",   \"query\": { \"bool\": {    \"should\": [    { \"regexp\": {\"paymentAccounts.id\": \"{{smartsearchid}}\" }},{\"nested\": {   \"path\": \"paymentAccounts.processingAccounts\",   \"query\": { \"bool\": {    \"should\": [    { \"regexp\": {\"paymentAccounts.processingAccounts.id\": \"{{smartsearchid}}\" }}] }   }}  }   ] }   }} }    ] }   },\"from\" : {{offset}},\"size\" : {{limit}}}"}
+
+{   "query": 
+	{ "bool": 
+		{    "should": 
+			[    
+				
+				{ "match": {"id": "{{smartsearchid}}" }}
+				,{"nested": 
+					{   "path": "paymentAccounts",   
+						"query": 
+							{ "bool": 
+								{    "should": 
+									[    
+										{ "match": {"paymentAccounts.id": "{{smartsearchid}}" }}
+										,{"nested": 
+											{   "path": "paymentAccounts.processingAccounts",   
+												"query": 
+													{ "bool": 
+														{    "should": 
+															[    
+																{ "match": {"paymentAccounts.processingAccounts.id": "{{smartsearchid}}" }}
+															] 
+														}   
+													}
+											}  
+										}   
+									] 
+							}   
+						}
+					} 
+				}    
+			] 
+		}   
+	},
+	"from" : {{offset}},"size" : {{limit}}
+}

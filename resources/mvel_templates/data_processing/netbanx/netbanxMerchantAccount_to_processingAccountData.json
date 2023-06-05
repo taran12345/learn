@@ -1,0 +1,488 @@
+@code{def nullSafeSet(input) { return com.paysafe.mastermerchant.util.MasterMerchantCommonUtil.nullSafe(input); }}
+
+{
+  "id": "@{processingAccountId}",
+  "pmleId": @{nullSafeSet(pmle)},
+  "pmleName": @{nullSafeSet(pmleName)},
+  "pmleType": @{nullSafeSet(pmleType)},
+  "businessModel": @{nullSafeSet(businessModel)},
+  "groupId": "@{groupId}",
+  "paymentAccountId": "@{paymentAccountId}",
+  "type": @{nullSafeSet(?processingType)},
+  "apiProtocol": null,
+  "descriptor": null,
+  "descriptorDetails": {
+    "descriptorName": @{nullSafeSet(?descriptorDetails.get('descriptorName'))},
+    "line1" : @{nullSafeSet(?descriptorDetails.get('descriptorName'))},
+    "line2" : @{nullSafeSet(?descriptorDetails.get('descriptorEmail'))},
+    "address" : @{nullSafeSet(?descriptorDetails.get('address'))},
+    "addressContd" : @{nullSafeSet(?descriptorDetails.get('addressContd'))},
+    "region" : @{nullSafeSet(?descriptorDetails.get('region'))},
+    "city" : @{nullSafeSet(?descriptorDetails.get('city'))}
+  },
+  "status": {
+    "code": @{nullSafeSet(?accountStatus)},
+    "reason": @{nullSafeSet(?accountStatusReason)},
+    "comment": null
+  },
+  "accountStatusHistory": [
+    @foreach{accStatusLog : accStatusHistory}
+    {
+      "status": @{nullSafeSet(?accStatusLog.get('status'))},
+      "statusReasonType": @{nullSafeSet(?accStatusLog.get('statusReasonType'))},
+      "comments": @{nullSafeSet(?accStatusLog.get('comments'))},
+      "createdOn": @{nullSafeSet(?accStatusLog.get('createdOn'))},
+      "createdBy": @{nullSafeSet(?accStatusLog.get('createdBy'))}
+    }
+    @end{','}
+  ],
+  "currency": "@{processingCurrency == null ? paymentCurrency : processingCurrency}",
+  "serviceCenter": null,
+  "salesForceId": @{nullSafeSet(?salesforceId)},
+  "thresholds": [
+      @foreach{threshold : thresholds}
+      {
+        "description": @{nullSafeSet(?threshold.get('description'))},
+        "frequencyType": @{nullSafeSet(?threshold.get('frequencyType'))},
+        "thresholdType": @{nullSafeSet(?threshold.get('thresholdType'))},
+        "minAmount": @{nullSafeSet(?threshold.get('minAmount'))},
+        "maxAmount": @{nullSafeSet(?threshold.get('maxAmount'))},
+        "minCount": @{nullSafeSet(?threshold.get('minCount'))},
+        "maxCount": @{nullSafeSet(?threshold.get('maxCount'))},
+        "tagValue": @{nullSafeSet(?threshold.get('tagValue'))},
+        "enforceRre": @{nullSafeSet(?threshold.get('enforceRre'))}
+      }
+      @end{','}
+  ],
+  "businessOwners": [
+      @foreach{businessOwner : businessOwners}
+      {
+        "jobTitle": @{nullSafeSet(?businessOwner.get('jobTitle'))},
+        "percentageOwnership": @{nullSafeSet(?businessOwner.get('percentageOwnership'))},
+        "isApplicant": @{nullSafeSet(?businessOwner.get('isApplicant'))},
+        "isControlProng": @{nullSafeSet(?businessOwner.get('isControlProng'))},
+        "person": {
+                    "firstName": @{nullSafeSet(?businessOwner.get('firstName'))},
+                    "middleName": @{nullSafeSet(?businessOwner.get('middleName'))},
+                    "lastName": @{nullSafeSet(?businessOwner.get('lastName'))},
+                    "email": @{nullSafeSet(?businessOwner.get('email'))},
+                    "mobilePhone": {
+                                    "number": @{nullSafeSet(?businessOwner.get('mobilePhoneNumber'))},
+                                    "extension": null,
+                                    "countryCode": null
+                                   },
+                    "homePhone": {
+                                  "number": @{nullSafeSet(?businessOwner.get('homePhoneNumber'))},
+                                  "extension": null,
+                                  "countryCode": null
+                                  },
+                    "workPhone": {
+                                  "number": @{nullSafeSet(?businessOwner.get('workPhoneNumber'))},
+                                  "extension": null,
+                                  "countryCode": null
+                                 },
+                    "nationality": @{nullSafeSet(?businessOwner.get('nationality'))},
+                    "gender": @{nullSafeSet(?businessOwner.get('gender'))},
+                    "dateOfBirth": {
+                                      "day": @{nullSafeSet(?businessOwner.get('dateOfBirthDay'))},
+                                      "month": @{nullSafeSet(?businessOwner.get('dateOfBirthMonth'))},
+                                      "year": @{nullSafeSet(?businessOwner.get('dateOfBirthYear'))}
+                                   },
+                    "currentAddress": {
+                                        "street": @{nullSafeSet(?businessOwner.get('caStreet'))},
+                                        "street1": @{nullSafeSet(?businessOwner.get('caStreet'))},
+                                        "street2": @{nullSafeSet(?businessOwner.get('caStreet2'))},
+                                        "city": @{nullSafeSet(?businessOwner.get('caCity'))},
+                                        "state": @{nullSafeSet(?businessOwner.get('caState'))},
+                                        "country": @{nullSafeSet(?businessOwner.get('caCountry'))},
+                                        "countryCode": @{nullSafeSet(?businessOwner.get('caCountryCode'))},
+                                        "zip": @{nullSafeSet(?businessOwner.get('caZip'))},
+                                        "region": @{nullSafeSet(?businessOwner.get('caRegion'))},
+                                        "yearsAtAddress": @{nullSafeSet(?businessOwner.get('caYearsAtAddress'))}
+                                      },
+                    "previousAddress": {
+                                        "street": @{nullSafeSet(?businessOwner.get('paStreet'))},
+                                        "street1": @{nullSafeSet(?businessOwner.get('paStreet'))},
+                                        "street2": @{nullSafeSet(?businessOwner.get('paStreet2'))},
+                                        "city": @{nullSafeSet(?businessOwner.get('paCity'))},
+                                        "state": @{nullSafeSet(?businessOwner.get('paState'))},
+                                        "country": @{nullSafeSet(?businessOwner.get('paCountry'))},
+                                        "countryCode": @{nullSafeSet(?businessOwner.get('paCountryCode'))},
+                                        "zip": @{nullSafeSet(?businessOwner.get('paZip'))},
+                                        "region": @{nullSafeSet(?businessOwner.get('paRegion'))},
+                                        "yearsAtAddress": @{nullSafeSet(?businessOwner.get('paYearsAtAddress'))}
+                                      },
+                    "creationDate": @{nullSafeSet(?businessOwner.get('creationDate'))},
+                    "modificationDate": @{nullSafeSet(?businessOwner.get('modificationDate'))}
+        }
+      }
+      @end{','}
+  ],
+  "revenueAgreement": null,
+  "termsAndConditions": null,
+  @if{?processingType == 'CARD'}
+  "cardConfiguration": {
+    "paymentMethod": @{nullSafeSet(?cardConfiguration.get('paymentMethod'))},
+    "storeId": @{nullSafeSet(?cardConfiguration.get('storeId'))},
+    "storePassword": @{nullSafeSet(?cardConfiguration.get('storePassword'))},
+    "ipAddresses": [@{nullSafeSet(?cardConfiguration.get('ipAddresses'))}],
+    "vtProtocol": @{nullSafeSet(?cardConfiguration.get('vtProtocol'))},
+    "responseOptions": {
+        "returnRaw": @{nullSafeSet(?cardConfiguration.get('returnRawResponse'))},
+        "returnBalance": @{nullSafeSet(?cardConfiguration.get('returnBalanceResponse'))}
+    },
+    "batchDelay": {
+        "value": @{nullSafeSet(?cardConfiguration.get('batchDelayInHrs'))},
+        "unit": "hour"
+    },
+    "storeDataAccountGroup": @{nullSafeSet(?cardConfiguration.get('storedDataAccGroup'))},
+    "creditDataAccountGroup": @{nullSafeSet(?cardConfiguration.get('creditAccGroup'))},
+    "cbAutoDisputes": @{nullSafeSet(?cardConfiguration.get('cbAutoDisputes'))},
+    "riskEngineConfiguration": {
+        "asyncRre": @{nullSafeSet(?cardConfiguration.get('asyncRre'))},
+        "behavior": @{nullSafeSet(?cardConfiguration.get('rreBehavior'))},
+        "evaluateAllRules": @{nullSafeSet(?cardConfiguration.get('rreEvaluateAllRules'))},
+        "isDrLiteAllowed": @{nullSafeSet(?cardConfiguration.get('isDrLiteAllowed'))}
+    },
+    "isExtraCreditEnabled": @{nullSafeSet(?cardConfiguration.get('isExtraCreditEnabled'))},
+    "isApplePayOnly": @{nullSafeSet(?cardConfiguration.get('isApplePayOnly'))},
+    "isAndriodPayOnly": @{nullSafeSet(?cardConfiguration.get('isAndriodPayOnly'))},
+    "isL2L3DataEnabled": @{nullSafeSet(?cardConfiguration.get('isL2L3DataEnabled'))},
+    "isQuasiCashEnabled": @{nullSafeSet(?cardConfiguration.get('isQuasiCashEnabled'))},
+    "isBypassTsysApiEnabled": @{nullSafeSet(?cardConfiguration.get('isBypassTsysApiEnabled'))},
+    "defaultAuthMode": @{nullSafeSet(?cardConfiguration.get('defaultAuthMode'))},
+    "visaBusinessAppId": @{nullSafeSet(?cardConfiguration.get('visaBusinessAppId'))},
+    "ecommerceModel": @{nullSafeSet(?cardConfiguration.get('ecommerceModel'))},
+    "overrideEnforcementBy3ds": @{nullSafeSet(?cardConfiguration.get('overrideEnforcementBy3ds'))},
+    "allowedTransactionOperations": {
+      "isAuthorizationsEnabled": @{nullSafeSet(?cardConfiguration.get('isAuthorizationEnabled'))},
+      "isSettlementsEnabled": @{nullSafeSet(?cardConfiguration.get('isSettlementEnabled'))},
+      "isCancelSettlementEnabled": @{nullSafeSet(?cardConfiguration.get('isCancelSettlementEnabled'))},
+      "isCreditEnabled": @{nullSafeSet(?cardConfiguration.get('isCreditEnabled'))},
+      "isCancelCreditEnabled": @{nullSafeSet(?cardConfiguration.get('isCancelCreditEnabled'))},
+      "isPurchaseEnabled": @{nullSafeSet(?cardConfiguration.get('isPurchaseEnabled'))},
+      "isOfflineAuthorizationEnabled": @{nullSafeSet(?cardConfiguration.get('isOfflineAuthorizationEnabled'))},
+      "isAvsOnlyEnabled": @{nullSafeSet(?cardConfiguration.get('isAvsOnlyEnabled'))},
+      "isAuthReversalEnabled": @{nullSafeSet(?cardConfiguration.get('isAuthReversalEnabled'))},
+      "isDoOnCancelSettlementEnabled": @{nullSafeSet(?cardConfiguration.get('isAuthReversalOnCancelSettlementEnabled'))},
+      "isPaymentEnabled": @{nullSafeSet(?cardConfiguration.get('isPaymentEnabled'))},
+      "isCancelPaymentEnabled": @{nullSafeSet(?cardConfiguration.get('isCancelPaymentEnabled'))},
+      "isIndependentCreditEnabled": @{nullSafeSet(?cardConfiguration.get('isIndependentCreditEnabled'))},
+      "isIndependentCreditAsRefundsEnabled": @{nullSafeSet(?cardConfiguration.get('isIndependentCreditAsRefundsEnabled'))},
+      "isCancelIndependentCreditEnabled": @{nullSafeSet(?cardConfiguration.get('isCancelIndependentCreditEnabled'))},
+      "isVerificationEnabled": @{nullSafeSet(?cardConfiguration.get('isVerificationEnabled'))},
+      "isRiskOnlyEnabled": @{nullSafeSet(?cardConfiguration.get('isRiskOnlyEnabled'))},
+      "isIlsEnabled": @{nullSafeSet(?cardConfiguration.get('isIlsEnabled'))},
+      "isLookupByChidEnabled": @{nullSafeSet(?cardConfiguration.get('isIlsLookupByChildEnabled'))},
+      "isIncludeAvsEnabled": @{nullSafeSet(?cardConfiguration.get('isIncludeAvsEnabled'))},
+      "is3DsEnabled": @{nullSafeSet(?cardConfiguration.get('is3DsEnabled'))}
+    },
+    "authorizationSecurityOptions": {
+      "isNegativeDatabaseEnabled": @{nullSafeSet(?cardConfiguration.get('isNegativeDatabaseEnabled'))},
+      "isAddressVerificationEnabled": @{nullSafeSet(?cardConfiguration.get('isAddressVerificationEnabled'))},
+      "isMaxmindMinfraudEnabled": @{nullSafeSet(?cardConfiguration.get('isMaxmindMinfraudEnabled'))},
+      "isThreatMetrixEnabled": @{nullSafeSet(?cardConfiguration.get('isThreatMetrixEnabled'))},
+      "isTestCardEnabled": @{nullSafeSet(?cardConfiguration.get('isTestCardEnabled'))},
+      "isExpiredCardsEnabled": @{nullSafeSet(?cardConfiguration.get('isExpiredCardsEnabled'))}
+    },
+    "batchSecurityOptions": {
+      "isOverdraftProtectionEnabled": @{nullSafeSet(?cardConfiguration.get('isOverdraftProtectionEnabled'))},
+      "isCreditsOnRetrievalsEnabled": @{nullSafeSet(?cardConfiguration.get('isCreditsOnRetrievalsEnabled'))},
+      "isNegativeDbBypassForCreditEnabled": @{nullSafeSet(?cardConfiguration.get('isNegativeDbBypassForCreditEnabled'))}
+    },
+    "cardTypes": [
+        @foreach{transactionOption : transactionOptions}
+        {
+        "enabled" : @{nullSafeSet(?transactionOption.get('activeFlag'))},
+        "type": @{nullSafeSet(?transactionOption.get('branCode'))},
+        "category": @{nullSafeSet(?transactionOption.get('category'))},
+        "acquirer": {
+          "mid": @{nullSafeSet(?transactionOption.get('accbiId'))},
+          "code": @{nullSafeSet(?transactionOption.get('aquirerCode'))}
+          },
+        "chid" : @{nullSafeSet(?transactionOption.get('chid'))},
+        "processorCode": @{nullSafeSet(?transactionOption.get('processorCode'))},
+        "c01": @{nullSafeSet(?transactionOption.get('c01'))},
+        "c02": @{nullSafeSet(?transactionOption.get('c02'))},
+        "c03": @{nullSafeSet(?transactionOption.get('c03'))},
+        "c04": @{nullSafeSet(?transactionOption.get('c04'))},
+        "c05": @{nullSafeSet(?transactionOption.get('c05'))},
+        "sicCode": @{nullSafeSet(?transactionOption.get('sicCode'))},
+        "jvFlag": @{nullSafeSet(?transactionOption.get('jvFlag'))},
+        "businessCaseId": @{nullSafeSet(?transactionOption.get('businessCaseId'))},
+        "tdsUserName": @{nullSafeSet(?transactionOption.get('tdsUserName'))},
+        "tdsPassword": @{nullSafeSet(?transactionOption.get('tdsPassword'))},
+        "tdsAcquirerBin": @{nullSafeSet(?transactionOption.get('tdsAcquirerBin'))},
+        "creationDate": @{nullSafeSet(?transactionOption.get('creationDate'))},
+        "modificationDate": @{nullSafeSet(?transactionOption.get('modificationDate'))},
+        "brandProperties": [
+          @foreach{brandProperty : transactionOption.get('brandProperties')}
+          {
+          "propertyCode" : @{nullSafeSet(?brandProperty.get('propertyCode'))},
+          "propertyValue": @{nullSafeSet(?brandProperty.get('propertyValue'))}
+          }
+          @end{','}
+        ],
+        "settlementBank": {
+          "id": @{nullSafeSet(?transactionOption.get('bankId'))},
+          "code": @{nullSafeSet(?transactionOption.get('bankCode'))},
+          "name": @{nullSafeSet(?transactionOption.get('bankName'))},
+          "description": @{nullSafeSet(?transactionOption.get('bankDescription'))},
+          "currency": @{nullSafeSet(?transactionOption.get('currency'))}
+          },
+        "riskControls" : {
+          "pass1" : @{nullSafeSet(?transactionOption.get('pass1'))},
+          "pass2" : @{nullSafeSet(?transactionOption.get('pass2'))},
+          "avs" : @{nullSafeSet(?transactionOption.get('avs'))},
+          "cvs" : @{nullSafeSet(?transactionOption.get('cvs'))},
+          "3ds" : @{nullSafeSet(?transactionOption.get('riskControl3ds'))}
+        },
+        "enabledOptions": {
+          "credits": @{nullSafeSet(?transactionOption.get('enableCredits'))},
+          "updater": @{nullSafeSet(?transactionOption.get('enableUpdater'))},
+          "realTimeSettlement": @{nullSafeSet(?transactionOption.get('realtimeSettlement'))},
+          "realTimeCredit": @{nullSafeSet(?transactionOption.get('realtimeCredit'))},
+          "realTimeOct": @{nullSafeSet(?transactionOption.get('realtimeOct'))}
+          },
+         "creditOverSettleAmount": @{nullSafeSet(?transactionOption.get('creditOverSettleAmount'))},
+         "creditOverSettlePercent": @{nullSafeSet(?transactionOption.get('creditOverSettlePercent'))}
+        }
+        @end{','}
+    ]
+  },
+  @end{}
+  @if{?processingType == 'DD'}
+    "ddConfiguration" : {
+      "accountId" : @{nullSafeSet(?ddConfiguration.get('accountId'))},
+      "storeId" : @{nullSafeSet(?ddConfiguration.get('storeId'))},
+      "storePassword" : @{nullSafeSet(?ddConfiguration.get('storePassword'))},
+      "acctProcessorId" : @{nullSafeSet(?ddConfiguration.get('merchantAcctProcessorId'))},
+      "ipAddresses" : [@{nullSafeSet(?ddConfiguration.get('ipAddresses'))}],
+      "isGuaranteed" : @{nullSafeSet(?ddConfiguration.get('isGuaranteed'))},
+      "bankAccountId" : @{nullSafeSet(?ddConfiguration.get('bankAccountId'))},
+      "payToOrderOf" : @{nullSafeSet(?ddConfiguration.get('payToTheOrderOf'))},
+      "realtimeTxnMode" : @{nullSafeSet(?ddConfiguration.get('realtimeTxnMode'))},
+      "batchTxnMode" : @{nullSafeSet(?ddConfiguration.get('batchTxnMode'))},
+      "procId" : @{nullSafeSet(?ddConfiguration.get('processorId'))},
+      "procPin" : @{nullSafeSet(?ddConfiguration.get('processorPwd'))},
+      "outgoingBatchGroupingKey" : @{nullSafeSet(?ddConfiguration.get('outgoingBatchGroupingKey'))},
+      "currency" : @{nullSafeSet(?ddConfiguration.get('currency'))},
+      "txnGroupingKey" : @{nullSafeSet(?ddConfiguration.get('txnGroupingKey'))},
+      "processorCode" : @{nullSafeSet(?ddConfiguration.get('processorCode'))},
+      "isSameDayCredit" : @{nullSafeSet(?ddConfiguration.get('isSameDayCredit'))},
+      "isSameDayDebit" : @{nullSafeSet(?ddConfiguration.get('isSameDayDebit'))},
+      "allowedTransactionOperations" : {
+        "isTxnCharge" : @{nullSafeSet(?ddConfiguration.get('isTxnCharge'))},
+        "isTxnCredit" : @{nullSafeSet(?ddConfiguration.get('isTxnCredit'))},
+        "isTxnVerify" : @{nullSafeSet(?ddConfiguration.get('isTxnVerify'))},
+        "isTxnVoid" : @{nullSafeSet(?ddConfiguration.get('isTxnVoid'))},
+        "isTxnInfoLookupService" : @{nullSafeSet(?ddConfiguration.get('isTxnInfoLookupService'))},
+        "isTxnMandate" : @{nullSafeSet(?ddConfiguration.get('isTxnMandate'))}
+      },
+      "authorizationSecurityOptions" : {
+        "isOptRre" : @{nullSafeSet(?ddConfiguration.get('isOptRre'))},
+        "isOptMaxMind" : @{nullSafeSet(?ddConfiguration.get('isOptMaxMind'))}
+      },
+      "overDraftFundingOptions" : {
+        "isOverdraftFunding" : @{nullSafeSet(?ddConfiguration.get('isOverdraftFunding'))},
+        "overdraftFundingStatusReason" : @{nullSafeSet(?ddConfiguration.get('overdraftFundingReason'))}
+      },
+      "bankAccountName" : @{nullSafeSet(?ddConfiguration.get('bankAccountName'))},
+      "accountNumber" : @{nullSafeSet(?ddConfiguration.get('accountNumberEncrypted'))},
+      "accountNumberHash" : @{nullSafeSet(?ddConfiguration.get('accountNumberHash'))},
+      "accountNumberLastDigits" : @{nullSafeSet(?ddConfiguration.get('accountNumberLastDigits'))},
+      "routingNumber" : @{nullSafeSet(?ddConfiguration.get('routingNumber'))},
+      "properties": [
+        @if{?ddConfiguration.get('processorProperties') != null}
+          @foreach{procProperty : ddConfiguration.get('processorProperties')}
+          {
+            "code" : @{nullSafeSet(?procProperty.get('code'))},
+            "description": @{nullSafeSet(?procProperty.get('description'))},
+            "value": @{nullSafeSet(?procProperty.get('value'))}
+          }
+          @end{','}
+        @end{}
+      ],
+      "representments": [
+        @if{?ddConfiguration.get('representments') != null}
+          @foreach{representment : ddConfiguration.get('representments')}
+          {
+            "statusCode" : @{nullSafeSet(?representment.get('statusCode'))},
+            "frequency": @{nullSafeSet(?representment.get('frequency'))}
+          }
+          @end{','}
+        @end{}
+      ]
+    },
+  @end{}
+  @if{?processingType == 'ALTP'}
+    "apmConfiguration" : {
+      "accountId" : @{nullSafeSet(?apmConfiguration.get('accountId'))},
+      "storeId" : @{nullSafeSet(?apmConfiguration.get('storeId'))},
+      "storePassword" : @{nullSafeSet(?apmConfiguration.get('storePassword'))},
+      "ipAddresses": [@{nullSafeSet(?apmConfiguration.get('ipAddresses'))}],
+       "accountCurrency" : @{nullSafeSet(?apmConfiguration.get('currency'))},
+       "apmType" : @{nullSafeSet(?apmConfiguration.get('apmType'))},
+       "obAccountProperties" : {
+          "authGwyCode" : @{nullSafeSet(?apmConfiguration.get('authGwyCode'))},
+          "authMerchantNbr" : @{nullSafeSet(?apmConfiguration.get('authMerchantNbr'))},
+          "payGwyCode" : @{nullSafeSet(?apmConfiguration.get('payGwyCode'))},
+          "payChid" : @{nullSafeSet(?apmConfiguration.get('payChid'))},
+          "payPassword" : @{nullSafeSet(?apmConfiguration.get('payPassword'))},
+          "properties": [
+            @if{?apmConfiguration.get('properties') != null}
+              @foreach{property : apmConfiguration.get('properties')}
+              {
+                "processorCode" : @{nullSafeSet(?property.get('processorCode'))},
+                "propertyCode": @{nullSafeSet(?property.get('propertyCode'))},
+                "displayText": @{nullSafeSet(?property.get('displayText'))},
+                "value": @{nullSafeSet(?property.get('value'))}
+              }
+              @end{','}
+          @end{}
+          ]
+        }
+      },
+  @end{}
+  "businessDetails": {
+    "tradeName": @{nullSafeSet(?companyName)},
+
+    "contractType": @{nullSafeSet(?businessDetails.get('contractType'))},
+
+    "businessRelationName": @{nullSafeSet(?businessDetails.get('businessRelationName'))},
+
+    "category": @{nullSafeSet(?businessDetails.get('categoryDescription'))},
+
+    "merchantBusinessCategory": @{nullSafeSet(?businessDetails.get('merchantBusinessCategoryDescription'))},
+
+    "type": @{nullSafeSet(?businessDetails.get('type'))},
+
+    "description": @{nullSafeSet(?businessDetails.get('description'))},
+
+    "shipsGoods": @{nullSafeSet(?businessDetails.get('shipsGoods'))},
+
+    "customerServicePhone": {
+      "number": @{nullSafeSet(?organizationDetails.get('customerSupportNumber'))},
+      "extension": null,
+      "countryCode": null
+    },
+
+    "customerServiceEmail": @{nullSafeSet(?organizationDetails.get('customerSupportEmail'))},
+
+    "salesRegion": @{nullSafeSet(?organizationDetails.get('salesRegion'))},
+
+    "hasRefundPolicy": @{nullSafeSet(?businessDetails.get('hasRefundPolicy'))},
+
+    "isCardPresent": @{nullSafeSet(?businessDetails.get('isCardPresent'))},
+
+    "hasPreviouslyProcessedTransactions": @{nullSafeSet(?businessDetails.get('hasPreviouslyProcessedTransactions'))},
+
+    "refundPolicyDescription": @{nullSafeSet(?businessDetails.get('refundPolicyDescription'))},
+
+    "merchantIpAddress": @{nullSafeSet(?businessDetails.get('merchantIpAddress'))},
+
+    "websiteUrl": @{nullSafeSet(?businessDetails.get('websiteUrl'))},
+
+    "businessStartTime": @{nullSafeSet(?businessDetails.get('businessStartTime'))},
+
+    "businessTimeZone": @{nullSafeSet(?businessDetails.get('businessTimeZone'))},
+
+    "monthlyVolume": @{nullSafeSet(?businessDetails.get('monthlyVolume'))},
+
+    "yearlyVolumeRange": @{nullSafeSet(?businessDetails.get('yearlyVolumeRange'))},
+
+    "averageTransactionAmount": @{nullSafeSet(?businessDetails.get('averageTransactionAmount'))},
+
+    "companyRegistrationNumber": @{nullSafeSet(?businessDetails.get('companyRegistrationNumber'))},
+
+    "taxRegistrationNumber": @{nullSafeSet(?businessDetails.get('taxRegistrationNumber'))},
+
+    "isChargeTaxesEnabled": @{nullSafeSet(?businessDetails.get('isChargeTaxesEnabled'))},
+
+    "deliveryTimeRange": @{nullSafeSet(?businessDetails.get('deliveryDaysRange'))},
+
+    "shop": @{nullSafeSet(?businessDetails.get('shopName'))},
+
+    "recurringBilling": @{nullSafeSet(?businessDetails.get('recurringBilling'))},
+
+    "accountGroups": [
+      @if{?accountGroupList != null}
+        @foreach{accGroup : accountGroupList}
+          "@{accGroup}"
+        @end{','}
+      @end{}
+    ],
+
+    "tags": [
+      @if{?tags != null}
+        @foreach{tag : tags}
+          "@{tag}"
+        @end{','}
+      @end{}
+    ],
+
+    "legalEntity":{
+      "id": @{nullSafeSet(?legalEntityCode)},
+      "description": @{nullSafeSet(?legalEntityDescription)}
+    },
+    "paysafeLegalEntity":{
+      "id": @{nullSafeSet(?paysafeLegalEntityCode)},
+      "description": @{nullSafeSet(?paysafeLegalEntityDescription)}
+    },
+    "mcc":{
+      "code": @{nullSafeSet(?mccCode)},
+      "description": @{nullSafeSet(?mccDescription)},
+      "comment": null
+    },
+    "tradeAddress":{
+      "street": @{nullSafeSet(?tradingAddress.get('street1'))},
+      "street1": @{nullSafeSet(?tradingAddress.get('street1'))},
+      "street2": @{nullSafeSet(?tradingAddress.get('street2'))},
+      "city": @{nullSafeSet(?tradingAddress.get('city'))},
+      "country": @{nullSafeSet(?tradingAddress.get('country'))},
+      "countryCode": @{nullSafeSet(?tradingAddress.get('countryCode'))},
+      "state": @{nullSafeSet(?tradingAddress.get('state'))},
+      "zip": @{nullSafeSet(?tradingAddress.get('zip'))},
+      "region": @{nullSafeSet(?tradingAddress.get('region'))}
+    },
+    "registeredAddress":{
+      "street": @{nullSafeSet(?organizationDetails.get('line1'))},
+      "street1": @{nullSafeSet(?organizationDetails.get('line1'))},
+      "street2": @{nullSafeSet(?organizationDetails.get('line2'))},
+      "city": @{nullSafeSet(?organizationDetails.get('city'))},
+      "state": @{nullSafeSet(?organizationDetails.get('province'))},
+      "country": @{nullSafeSet(?organizationDetails.get('country'))},
+      "countryCode": @{nullSafeSet(?organizationDetails.get('countryCode'))},
+      "zip": @{nullSafeSet(?organizationDetails.get('postalCode'))},
+      "region": @{nullSafeSet(?organizationDetails.get('salesRegion'))}
+    },
+    "onboardingInformation":{
+      "partnerId": @{nullSafeSet(?businessDetails.get('partnerId'))},
+      "partnerName": @{nullSafeSet(?businessDetails.get('partnerName'))},
+      "partnerProductId": @{nullSafeSet(?businessDetails.get('partnerProductId'))},
+      "partnerProductName": @{nullSafeSet(?businessDetails.get('partnerProductName'))},
+      "accountManager": @{nullSafeSet(?accountManager)},
+      "amexMid": @{nullSafeSet(?businessDetails.get('amexMid'))}
+    }
+  },
+  "keywords": [
+    @if{?keywordList != null}
+      @foreach{keyword : keywordList}
+        "@{nonPrintableChar(keyword)}"
+      @end{','}
+    @end{}
+  ],
+  "creationDate": {
+    "day": null,
+    "month": null,
+    "year": null
+  },
+  "defaultBank": @{nullSafeSet(?defaultBankName)},
+  "defaultBankCode": @{nullSafeSet(?defaultBankCode)},
+  "gateway": null,
+  "sourceAuthority": {
+    "origin": "NETBANX",
+    "location": "MONTREAL",
+    "referenceId": "@{accountId}"
+  }
+}

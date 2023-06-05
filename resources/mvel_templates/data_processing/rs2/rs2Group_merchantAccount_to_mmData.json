@@ -1,0 +1,87 @@
+@code{def nullSafeSet(input) { return com.paysafe.mastermerchant.util.MasterMerchantCommonUtil.nullSafe(input); }}
+
+{
+  "type": "GROUP",
+  "sourceAuthority": {
+    "origin": "RS2",
+    "location": "LONDON",
+    "referenceId": "@{clientNumber}"
+  },
+  "paymentAccounts": [
+    {
+      "type": "GROUP",
+      "currency": @{nullSafeSet(?settlementCurrency)},
+      "billingLevel": @{nullSafeSet(?billingLevel)},
+      "configuration": {
+        "trustMerchant": @{nullSafeSet(?trustMerchant)}
+      },
+      "revenueAgreement": {
+        "terms": [
+          {
+            "name": "Client Tariff",
+            "code": "CLIENT_TARIFF_ID",
+            "description": @{nullSafeSet(?clientTariff)}
+          },
+          {
+            "name": "Merchant Transaction Tariff",
+            "code": "MERCHANT_TRANSACTION_TARIFF_ID",
+            "description": @{nullSafeSet(?merchantTransactionTariff)}
+          },
+          {
+            "name": "Posting Method",
+            "code": "POSTING_METHOD",
+            "description": @{nullSafeSet(?postingMethod)}
+          },
+          {
+            "name": "Posting Description",
+            "code": "POSTING_DESCRIPTION",
+            "description": @{nullSafeSet(?postingDescription)}
+	      }
+        ]
+      },
+      "sourceAuthority": {
+        "origin": "RS2",
+        "location": "LONDON",
+        "referenceId": "@{clientNumber}"
+      },
+      "paymentSchedules": [
+        @foreach{paymentSchedule : paymentSchedules}
+          {
+            "fundingMethod": @{nullSafeSet(?paymentSchedule.get('fundingMethod'))},
+            "daysInArrears": @{nullSafeSet(?paymentSchedule.get('daysInArrears'))},
+            "minimumAmount": @{nullSafeSet(?paymentSchedule.get('minimumPayoutAmount'))},
+            "frequency": @{nullSafeSet(?paymentSchedule.get('payoutFrequency'))},
+            "schedule": @{nullSafeSet(?paymentSchedule.get('payoutSchedule'))},
+            "effectiveDate": @{nullSafeSet(?paymentSchedule.get('effectiveDate'))},
+            "settlementCategory": @{nullSafeSet(?paymentSchedule.get('settlementCategory'))},
+            "settlementMethod": @{nullSafeSet(?paymentSchedule.get('settlementMethod'))}
+          }
+        @end{','}
+      ],
+      "ledgerAccounts": [
+          @foreach{ledgerAccount : ledgerAccounts}
+          {
+            "billingLevel": @{nullSafeSet(?ledgerAccount.get('billingLevel'))},
+            "accountNumber": @{nullSafeSet(?ledgerAccount.get('accountNumber'))},
+            "currency": @{nullSafeSet(?ledgerAccount.get('currency'))},
+            "status": {
+              "description": @{nullSafeSet(?ledgerAccount.get('status'))}
+            },
+            "type": {
+              "description": @{nullSafeSet(?ledgerAccount.get('type'))}
+            }
+          }
+          @end{','}
+      ],
+      "processingAccounts": [
+        {
+          "sourceAuthority": {
+            "origin": "RS2",
+            "location": "LONDON",
+            "referenceId": "@{clientNumber}"
+          }
+        }
+      ]
+    }
+  ]
+}

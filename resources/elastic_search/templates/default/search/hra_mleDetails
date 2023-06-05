@@ -1,0 +1,8 @@
+curl -XPUT "http://localhost:9200/_scripts/hra_mleDetails" -H 'Content-Type: application/json' -d'
+{
+  "script": {
+    "lang": "mustache",
+    "source": "{\"query\":{\"bool\":{\"should\":[{\"nested\":{\"path\":\"paymentAccounts\",\"query\":{\"bool\":{\"should\":[{\"nested\":{\"path\":\"paymentAccounts.processingAccounts\",\"query\":{\"bool\":{\"should\":[{\"terms\":{\"paymentAccounts.processingAccounts.businessDetails.legalEntity.id\":{{#toJson}}mleIds{{/toJson}}}}]}}}}]}}}}]}}{{#from}},\"from\":{{from}}{{/from}}{{#size}},\"size\":{{size}} {{/size}}}"
+  }
+}'
+

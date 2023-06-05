@@ -1,0 +1,22 @@
+{
+  "template": {
+    "size": "10000",
+    "_source": ["paymentAccounts"],
+    "query": {
+      "nested": {
+        "path": "paymentAccounts",
+        "query": {
+          "bool": {
+            "filter": [
+              {
+                "term": {
+                  "paymentAccounts.id.keyword": "{{paymentAccountId}}"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

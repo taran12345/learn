@@ -1,0 +1,3752 @@
+{
+  "settings": {
+    "index": {
+      "mapping.total_fields.limit": 3000,
+      "number_of_shards": 5,
+      "number_of_replicas": 1
+    },
+    "analysis": {
+      "normalizer": {
+        "custom_normalizer": {
+          "type": "custom",
+          "filter": "lowercase"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "searchData": {
+      "properties": {
+        "creationDate": {
+          "type": "date",
+          "format": "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        },
+        "termsAndConditions": {
+          "properties": {
+            "effectiveDate": {
+              "type": "date",
+              "format": "yyyy-MM-dd'T'HH:mm:ss'Z'"
+            },
+            "version": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            }
+          }
+        },
+        "statusModifiedDate": {
+          "type": "date",
+          "format": "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        },
+        "agentDetails": {
+          "properties": {
+            "contactEmail": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "contactName": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "contactPhone": {
+              "properties": {
+                "countryCode": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "extension": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "number": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "email": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "fax": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "legalEntity": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "level": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "mailingAddress": {
+              "properties": {
+                "city": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "country": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "state": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "street": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "street1": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "street2": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "zip": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "mailingName": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "phone": {
+              "properties": {
+                "countryCode": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "extension": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "number": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "registeredAddress": {
+              "properties": {
+                "city": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "country": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "state": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "street": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "street1": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "street2": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "zip": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "salesForceId": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "taxRegistrationNumber": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "title": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "tradeName": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "type": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "id": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword"
+            }
+          }
+        },
+        "name": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword"
+            }
+          }
+        },
+        "partnerConfiguration": {
+          "properties": {
+            "address": {
+              "properties": {
+                "street": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "street1": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "street2": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "zip": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "apiAccessConfiguration": {
+              "properties": {
+                "id": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "password": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "email": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "onboardingConfiguration": {
+              "properties": {
+                "products": {
+                  "properties": {
+                    "accountManager": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword",
+                          "normalizer": "custom_normalizer"
+                        }
+                      }
+                    },
+                    "acquirerCode": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "assignedMccs": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "businessStartTime": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "businessTimeZone": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "category": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "complianceMethod": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "costAgreements": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "defaultBank": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "description": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "domain": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "enableAmr": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "enableDd": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "enableExternalKyc": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "maxTransactionAmountRequired": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "notificationConfiguration": {
+                      "properties": {
+                        "email": {
+                          "properties": {
+                            "from": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "paymentConfiguration": {
+                      "properties": {
+                        "cronSchedule": {
+                          "properties": {
+                            "expression": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "daysInArrears": {
+                          "properties": {
+                            "type": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "value": {
+                              "type": "long"
+                            }
+                          }
+                        },
+                        "descriptor": {
+                          "properties": {
+                            "inherit": {
+                              "type": "boolean"
+                            },
+                            "value": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "maximumAmount": {
+                          "type": "long"
+                        },
+                        "minimumAccountBalance": {
+                          "type": "long"
+                        },
+                        "minimumAmount": {
+                          "type": "long"
+                        },
+                        "paymentOptions": {
+                          "properties": {
+                            "consolidateWithoutPayment": {
+                              "type": "boolean"
+                            },
+                            "nextDayFunding": {
+                              "type": "boolean"
+                            },
+                            "processingAccountPaymentSchedule": {
+                              "type": "boolean"
+                            },
+                            "requireMicroDeposit": {
+                              "type": "boolean"
+                            },
+                            "subPayeePaymentSchedule": {
+                              "type": "boolean"
+                            },
+                            "transfers": {
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "paymentsOnHold": {
+                          "properties": {
+                            "action": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "value": {
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "splitPayments": {
+                          "properties": {
+                            "enabled": {
+                              "type": "boolean"
+                            },
+                            "linkedAccounts": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "type": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "paysafeLegalEntity": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "productTemplateType": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "productType": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "region": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "revenueAgreements": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "subcategory": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "transactionOptions": {
+                      "properties": {
+                        "allowedTransactionOperations": {
+                          "properties": {
+                            "isAuthReversalEnabled": {
+                              "type": "boolean"
+                            },
+                            "isAuthorizationsEnabled": {
+                              "type": "boolean"
+                            },
+                            "isCancelCreditEnabled": {
+                              "type": "boolean"
+                            },
+                            "isCancelPaymentEnabled": {
+                              "type": "boolean"
+                            },
+                            "isCancelSettlementEnabled": {
+                              "type": "boolean"
+                            },
+                            "isDoOnCancelSettlementEnabled": {
+                              "type": "boolean"
+                            },
+                            "isIlsEnabled": {
+                              "type": "boolean"
+                            },
+                            "isIncludeAvsEnabled": {
+                              "type": "boolean"
+                            },
+                            "isIndependentCreditEnabled": {
+                              "type": "boolean"
+                            },
+                            "isLookupByChidEnabled": {
+                              "type": "boolean"
+                            },
+                            "isPaymentEnabled": {
+                              "type": "boolean"
+                            },
+                            "isPurchaseEnabled": {
+                              "type": "boolean"
+                            },
+                            "isRiskOnlyEnabled": {
+                              "type": "boolean"
+                            },
+                            "isSettlementsEnabled": {
+                              "type": "boolean"
+                            },
+                            "isVerificationEnabled": {
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "authorizationSecurityOptions": {
+                          "properties": {
+                            "isAddressVerificationEnabled": {
+                              "type": "boolean"
+                            },
+                            "isExpiredCardsEnabled": {
+                              "type": "boolean"
+                            },
+                            "isMaxmindMinfraudEnabled": {
+                              "type": "boolean"
+                            },
+                            "isNegativeDatabaseEnabled": {
+                              "type": "boolean"
+                            },
+                            "isThreatMetrixEnabled": {
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "batchDelay": {
+                          "properties": {
+                            "unit": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "batchSecurityOptions": {
+                          "properties": {
+                            "isCreditsOnRetrievalsEnabled": {
+                              "type": "boolean"
+                            },
+                            "isNegativeDbBypassForCreditEnabled": {
+                              "type": "boolean"
+                            },
+                            "isOverdraftProtectionEnabled": {
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "cbAutoDisputes": {
+                          "type": "boolean"
+                        },
+                        "creditCardOptions": {
+                          "properties": {
+                            "brand": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "options": {
+                              "properties": {
+                                "name": {
+                                  "type": "text",
+                                  "fields": {
+                                    "keyword": {
+                                      "type": "keyword"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "responseOptions": {
+                          "properties": {
+                            "returnBalance": {
+                              "type": "boolean"
+                            },
+                            "returnRaw": {
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "riskEngineConfiguration": {
+                          "properties": {
+                            "isDrLiteAllowed": {
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "storeId": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "storePassword": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "phone": {
+              "properties": {
+                "countryCode": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "extension": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "number": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "paymentAccountIds": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword"
+            }
+          }
+        },
+        "paymentAccounts": {
+          "type": "nested",
+          "properties": {
+            "configuration": {
+              "properties": {
+                "daysInArrears": {
+                  "type": "long"
+                },
+                "isPostFeesMonthlyEnabled": {
+                  "type": "boolean"
+                },
+                "rollingReserve": {
+                  "properties": {
+                    "percent": {
+                      "type": "float"
+                    },
+                    "period": {
+                      "type": "long"
+                    }
+                  }
+                }
+              }
+            },
+            "contacts": {
+              "properties": {
+                "email": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "normalizer": "custom_normalizer"
+                    }
+                  }
+                },
+                "firstName": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "normalizer": "custom_normalizer"
+                    }
+                  }
+                },
+                "creationDate": {
+                  "type": "date",
+                  "format": "yyyy-MM-dd'T'HH:mm:ss'Z'"
+                },
+                "modificationDate": {
+                  "type": "date",
+                  "format": "yyyy-MM-dd'T'HH:mm:ss'Z'"
+                },
+                "homePhone": {
+                  "properties": {
+                    "number": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                },
+                "jobTitle": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "lastName": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "normalizer": "custom_normalizer"
+                    }
+                  }
+                },
+                "middleName": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "normalizer": "custom_normalizer"
+                    }
+                  }
+                },
+                "phone": {
+                  "properties": {
+                    "number": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                },
+                "workPhone": {
+                  "properties": {
+                    "number": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "creationDate": {
+              "properties": {
+                "day": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "month": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "year": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "creationDateEs": {
+              "type": "date",
+              "format": "dd-MM-yyyy"
+            },
+            "currency": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "groupId": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "id": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "locale": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "name": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "paymentSchedules": {
+              "properties": {
+                "descriptor": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "effectiveDate": {
+                  "type": "date",
+                  "format": "yyyyMMdd"
+                },
+                "destination": {
+                  "properties": {
+                    "ach": {
+                      "properties": {
+                        "accountNumber": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "accountType": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "bankName": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "routingNumber": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "aib": {
+                      "properties": {
+                        "accountNumber": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "ibanNumber": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "routingNumber": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "swiftNumber": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "bacs": {
+                      "properties": {
+                        "accountNumber": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "sortCode": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "eft": {
+                      "properties": {
+                        "accountNumber": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "transitNumber": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "nab": {
+                      "properties": {
+                        "accountNumber": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "routingNumber": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "sepa": {
+                      "properties": {
+                        "beneficiaryAccountName": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "beneficiaryBankCountry": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "ibanNumber": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "swiftNumber": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "wire": {
+                      "properties": {
+                        "accountNumber": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "beneficiaryAccountName": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "beneficiaryAddress": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "beneficiaryBankAddress": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "beneficiaryBankCity": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "beneficiaryBankCountry": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "beneficiaryBankName": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "beneficiaryBankPostCode": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "beneficiaryBankRegion": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "beneficiaryCity": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "beneficiaryCountry": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "beneficiaryPostCode": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "beneficiaryRegion": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "ibanNumber": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "routingNumber": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "sortCode": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "swiftNumber": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "maximumAmount": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "minimumAmount": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "nextPaymentDate": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "paymentVehicle": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "source": {
+                  "properties": {
+                    "accountId": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "accountName": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "accountNumber": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "bankName": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "currency": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "flow": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "paymentType": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "routingNumber": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                },
+                "status": {
+                  "properties": {
+                    "code": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "paymentScheduleHistory": {
+              "properties": {
+                "frequencyType": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "frequency": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "daysInArrears": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "paymentsOnHold": {
+                  "type": "boolean"
+                },
+                "paymentOnHoldReason": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "modifiedOn": {
+                  "type": "date",
+                  "format": "yyyy-MM-dd'T'HH:mm:ss'Z'"
+                },
+                "modifiedBy": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "processingAccountIds": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "processingAccounts": {
+              "type": "nested",
+              "properties": {
+                "apiProtocol": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "businessDetails": {
+                  "properties": {
+                    "accountGroups": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword",
+                          "normalizer": "custom_normalizer"
+                        }
+                      }
+                    },
+                    "amexMerchantNumber": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "annualProcessingAmount": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "averageDaysToDeliver": {
+                      "type": "long"
+                    },
+                    "averageTransactionAmount": {
+                      "type": "long"
+                    },
+                    "businessStartTime": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "businessTimeZone": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "category": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "customerService": {
+                      "properties": {
+                        "email": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "phone": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "customerServiceEmail": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "customerServicePhone": {
+                      "properties": {
+                        "countryCode": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "extension": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "number": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "description": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "hasPreviouslyProcessedTransactions": {
+                      "type": "boolean"
+                    },
+                    "hasRefundPolicy": {
+                      "type": "boolean"
+                    },
+                    "isCardPresent": {
+                      "type": "boolean"
+                    },
+                    "legalEntity": {
+                      "properties": {
+                        "description": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword",
+                              "normalizer": "custom_normalizer"
+                            }
+                          }
+                        },
+                        "id": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "longestDaysToDeliver": {
+                      "type": "long"
+                    },
+                    "mcc": {
+                      "properties": {
+                        "code": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "description": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "merchantIpAddress": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "onboardingInformation": {
+                      "properties": {
+                        "date": {
+                          "properties": {
+                            "day": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "month": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "year": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "partnerProduct": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "partnerProductId": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "partnerProductName": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword",
+                              "normalizer": "custom_normalizer"
+                            }
+                          }
+                        },
+                        "partnerId": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "partnerName": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword",
+                              "normalizer": "custom_normalizer"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "phone": {
+                      "properties": {
+                        "number": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "refundPolicyDescription": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "registeredAddress": {
+                      "properties": {
+                        "city": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "country": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "id": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "region": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "state": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "street": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "street1": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "street2": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "yearsAtAddress": {
+                          "type": "long"
+                        },
+                        "zip": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "shipsGoods": {
+                      "type": "boolean"
+                    },
+                    "taxRegistrationNumber": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "tradeAddress": {
+                      "properties": {
+                        "city": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "country": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "region": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "state": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "tradeName": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword",
+                          "normalizer": "custom_normalizer"
+                        }
+                      }
+                    },
+                    "type": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "websiteUrl": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                },
+                "businessOwners": {
+                  "properties": {
+                    "id": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "jobTitle": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "percentageOwnership": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "person": {
+                      "properties": {
+                        "canadianDrivingLicense": {
+                          "type": "object"
+                        },
+                        "currentAddress": {
+                          "properties": {
+                            "city": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "country": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "state": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "street": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "street2": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "yearsAtAddress": {
+                              "type": "long"
+                            },
+                            "zip": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "dateOfBirth": {
+                          "properties": {
+                            "day": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "month": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "year": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "email": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword",
+                              "normalizer": "custom_normalizer"
+                            }
+                          }
+                        },
+                        "europeanIdCard": {
+                          "type": "object"
+                        },
+                        "firstName": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "creationDate": {
+                          "type": "date",
+                          "format": "yyyy-MM-dd'T'HH:mm:ss'Z'"
+                        },
+                        "modificationDate": {
+                          "type": "date",
+                          "format": "yyyy-MM-dd'T'HH:mm:ss'Z'"
+                        },
+                        "gender": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "homePhone": {
+                          "properties": {
+                            "number": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "id": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "internationalPassport": {
+                          "type": "object"
+                        },
+                        "lastName": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "middleName": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "mobilePhone": {
+                          "properties": {
+                            "number": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "nationality": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "previousAddress": {
+                          "properties": {
+                            "city": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "country": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "state": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "street": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "street2": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "yearsAtAddress": {
+                              "type": "long"
+                            },
+                            "zip": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "previousLastName": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "sin": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "ssn": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "ukDrivingLicense": {
+                          "type": "object"
+                        },
+                        "userId": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "workPhone": {
+                          "properties": {
+                            "number": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "personId": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                },
+                "cardConfiguration": {
+                  "properties": {
+                    "allowedTransactionOperations": {
+                      "properties": {
+                        "isAuthReversalEnabled": {
+                          "type": "boolean"
+                        },
+                        "isAuthorizationsEnabled": {
+                          "type": "boolean"
+                        },
+                        "isAvsOnlyEnabled": {
+                          "type": "boolean"
+                        },
+                        "isCancelCreditEnabled": {
+                          "type": "boolean"
+                        },
+                        "isCancelIndependentCreditEnabled": {
+                          "type": "boolean"
+                        },
+                        "isCancelPaymentEnabled": {
+                          "type": "boolean"
+                        },
+                        "isCancelSettlementEnabled": {
+                          "type": "boolean"
+                        },
+                        "isDoOnCancelSettlementEnabled": {
+                          "type": "boolean"
+                        },
+                        "isIlsEnabled": {
+                          "type": "boolean"
+                        },
+                        "isIncludeAvsEnabled": {
+                          "type": "boolean"
+                        },
+                        "isIndependentCreditEnabled": {
+                          "type": "boolean"
+                        },
+                        "isLookupByChidEnabled": {
+                          "type": "boolean"
+                        },
+                        "isPaymentEnabled": {
+                          "type": "boolean"
+                        },
+                        "isPaymentTypesGatewayCheck21Enabled": {
+                          "type": "boolean"
+                        },
+                        "isPurchaseEnabled": {
+                          "type": "boolean"
+                        },
+                        "isRiskOnlyEnabled": {
+                          "type": "boolean"
+                        },
+                        "isSettlementsEnabled": {
+                          "type": "boolean"
+                        },
+                        "isVerificationEnabled": {
+                          "type": "boolean"
+                        },
+                        "isVtCardSwiperEnabled": {
+                          "type": "boolean"
+                        }
+                      }
+                    },
+                    "amexNumber": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "authorizationSecurityOptions": {
+                      "properties": {
+                        "isAddressVerificationEnabled": {
+                          "type": "boolean"
+                        },
+                        "isExpiredCardsEnabled": {
+                          "type": "boolean"
+                        },
+                        "isMaxmindMinfraudEnabled": {
+                          "type": "boolean"
+                        },
+                        "isNegativeDatabaseEnabled": {
+                          "type": "boolean"
+                        },
+                        "isTestCardEnabled": {
+                          "type": "boolean"
+                        },
+                        "isThreatMetrixEnabled": {
+                          "type": "boolean"
+                        }
+                      }
+                    },
+                    "batchDelay": {
+                      "properties": {
+                        "unit": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "value": {
+                          "type": "long"
+                        }
+                      }
+                    },
+                    "storeDataAccountGroup": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "creditDataAccountGroup": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "batchSecurityOptions": {
+                      "properties": {
+                        "isCreditsOnRetrievalsEnabled": {
+                          "type": "boolean"
+                        },
+                        "isNegativeDbBypassForCreditEnabled": {
+                          "type": "boolean"
+                        },
+                        "isOverdraftProtectionEnabled": {
+                          "type": "boolean"
+                        }
+                      }
+                    },
+                    "cardTypes": {
+                      "properties": {
+                        "acquirer": {
+                          "properties": {
+                            "code": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "name": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "category": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "chid": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "costAgreementId": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "enabledOptions": {
+                          "properties": {
+                            "credits": {
+                              "type": "boolean"
+                            },
+                            "realTimeCredit": {
+                              "type": "boolean"
+                            },
+                            "realTimeSettlement": {
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "mcc": {
+                          "properties": {
+                            "code": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "description": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "processorCode": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "revenueAgreement": {
+                          "properties": {
+                            "category": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "displayName": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "fees": {
+                              "properties": {
+                                "authsApprovedFee": {
+                                  "properties": {
+                                    "amount": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "isEnabled": {
+                                      "type": "boolean"
+                                    }
+                                  }
+                                },
+                                "chargebacksFee": {
+                                  "properties": {
+                                    "amount": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "isEnabled": {
+                                      "type": "boolean"
+                                    }
+                                  }
+                                },
+                                "failedRequestFee": {
+                                  "properties": {
+                                    "amount": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "isEnabled": {
+                                      "type": "boolean"
+                                    }
+                                  }
+                                },
+                                "multiCurrencyFee": {
+                                  "properties": {
+                                    "isEnabled": {
+                                      "type": "boolean"
+                                    },
+                                    "percent": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "originalCreditCancelledFee": {
+                                  "properties": {
+                                    "amount": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "isEnabled": {
+                                      "type": "boolean"
+                                    }
+                                  }
+                                },
+                                "originalCreditCompletedFee": {
+                                  "properties": {
+                                    "amount": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "isEnabled": {
+                                      "type": "boolean"
+                                    }
+                                  }
+                                },
+                                "originalCreditDeclinedFee": {
+                                  "properties": {
+                                    "amount": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "isEnabled": {
+                                      "type": "boolean"
+                                    }
+                                  }
+                                },
+                                "preAuthFee": {
+                                  "properties": {
+                                    "amount": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "isEnabled": {
+                                      "type": "boolean"
+                                    },
+                                    "percent": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "refundCancelledFee": {
+                                  "properties": {
+                                    "amount": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "isEnabled": {
+                                      "type": "boolean"
+                                    }
+                                  }
+                                },
+                                "refundCompletedFee": {
+                                  "properties": {
+                                    "amount": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "isEnabled": {
+                                      "type": "boolean"
+                                    }
+                                  }
+                                },
+                                "retrievalFee": {
+                                  "properties": {
+                                    "amount": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "isEnabled": {
+                                      "type": "boolean"
+                                    }
+                                  }
+                                },
+                                "reversalFee": {
+                                  "properties": {
+                                    "amount": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "isEnabled": {
+                                      "type": "boolean"
+                                    }
+                                  }
+                                },
+                                "settlementBlend": {
+                                  "properties": {
+                                    "discountRate": {
+                                      "properties": {
+                                        "isEnabled": {
+                                          "type": "boolean"
+                                        },
+                                        "percent": {
+                                          "type": "text",
+                                          "fields": {
+                                            "keyword": {
+                                              "type": "keyword"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "transactionFee": {
+                                      "properties": {
+                                        "amount": {
+                                          "type": "text",
+                                          "fields": {
+                                            "keyword": {
+                                              "type": "keyword"
+                                            }
+                                          }
+                                        },
+                                        "isEnabled": {
+                                          "type": "boolean"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "settlementCancelledFee": {
+                                  "properties": {
+                                    "amount": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "isEnabled": {
+                                      "type": "boolean"
+                                    }
+                                  }
+                                },
+                                "threedLookupFee": {
+                                  "properties": {
+                                    "amount": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "isEnabled": {
+                                      "type": "boolean"
+                                    }
+                                  }
+                                },
+                                "voidAuthFee": {
+                                  "properties": {
+                                    "amount": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "isEnabled": {
+                                      "type": "boolean"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "id": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "netbanxAgreementId": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "pricingType": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "processingAgreementId": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "sourceAgreementId": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "type": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "riskControls": {
+                          "properties": {
+                            "3ds": {
+                              "type": "boolean"
+                            },
+                            "avs": {
+                              "type": "boolean"
+                            },
+                            "cvs": {
+                              "type": "boolean"
+                            },
+                            "pass1": {
+                              "type": "boolean"
+                            },
+                            "pass2": {
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "settlementBank": {
+                          "properties": {
+                            "bankAccount": {
+                              "properties": {
+                                "ach": {
+                                  "properties": {
+                                    "accountNumber": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "routingNumber": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "aib": {
+                                  "properties": {
+                                    "accountNumber": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "ibanNumber": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "routingNumber": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "swiftNumber": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "bacs": {
+                                  "properties": {
+                                    "accountNumber": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "sortCode": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "eft": {
+                                  "properties": {
+                                    "accountNumber": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "transitNumber": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "nab": {
+                                  "properties": {
+                                    "accountNumber": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "routingNumber": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "sepa": {
+                                  "properties": {
+                                    "ibanNumber": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "swiftNumber": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "wire": {
+                                  "properties": {
+                                    "accountNumber": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "ibanNumber": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "routingNumber": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "sortCode": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    },
+                                    "swiftNumber": {
+                                      "type": "text",
+                                      "fields": {
+                                        "keyword": {
+                                          "type": "keyword"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "code": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "currency": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "eft": {
+                              "properties": {
+                                "accountNumber": {
+                                  "type": "text",
+                                  "fields": {
+                                    "keyword": {
+                                      "type": "keyword"
+                                    }
+                                  }
+                                },
+                                "transitNumber": {
+                                  "type": "text",
+                                  "fields": {
+                                    "keyword": {
+                                      "type": "keyword"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "id": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "name": {
+                              "type": "text",
+                              "fields": {
+                                "keyword": {
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "type": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "creditOverSettleAmount": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "creditOverSettlePercent": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "cbAutoDisputes": {
+                      "type": "boolean"
+                    },
+                    "defaultAuthMode": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "enabledL2L3Data": {
+                      "type": "boolean"
+                    },
+                    "ipAddresses": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "isAndriodPayOnly": {
+                      "type": "boolean"
+                    },
+                    "isExtraCreditEnabled": {
+                      "type": "boolean"
+                    },
+                    "isL2L3DataEnabled": {
+                      "type": "boolean"
+                    },
+                    "paymentMethod": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "responseOptions": {
+                      "properties": {
+                        "returnBalance": {
+                          "type": "boolean"
+                        },
+                        "returnRaw": {
+                          "type": "boolean"
+                        }
+                      }
+                    },
+                    "riskEngineConfiguration": {
+                      "properties": {
+                        "behavior": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "isDrLiteAllowed": {
+                          "type": "boolean"
+                        },
+                        "mode": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "vtProtocol": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                },
+                "creationDate": {
+                  "properties": {
+                    "day": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "month": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "year": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                },
+                "creationDateEs": {
+                  "type": "date",
+                  "format": "dd-MM-yyyy"
+                },
+                "currency": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "defaultBank": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "gateway": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "groupId": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "id": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "masterMerchantId": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "paymentAccountId": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "revenueAgreement": {
+                  "properties": {
+                    "id": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                },
+                "serviceCenter": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "sourceAuthority": {
+                  "properties": {
+                    "location": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "origin": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "referenceId": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                },
+                "status": {
+                  "properties": {
+                    "code": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                },
+                "accountStatusHistory": {
+                  "properties": {
+                    "status": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "comments": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "createdOn": {
+                      "type": "date",
+                      "format": "yyyy-MM-dd'T'HH:mm:ss'Z'"
+                    },
+                    "createdBy": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                },
+                "type": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "keywords": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "region": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "revenueAgreement": {
+              "properties": {
+                "name": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "fees": {
+                  "properties": {
+                    "feeName": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "isEnabled": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "productFeeConfigs": {
+                  "properties": {
+                    "product": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "cardType": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "cardCategory": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "fees": {
+                      "properties": {
+                        "feeName": {
+                          "type": "text",
+                          "fields": {
+                            "keyword": {
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "isEnabled": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                },
+                "id": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "isEnabled": {
+                  "type": "boolean"
+                },
+                "sourceAgreementId": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "thirdPartyServiceFees": {
+                  "type": "object"
+                }
+              }
+            },
+            "sourceAuthority": {
+              "properties": {
+                "location": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "origin": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "referenceId": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "status": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "thirdPartyServices": {
+              "properties": {
+                "cbms": {
+                  "properties": {
+                    "isCbmsPlusEnabled": {
+                      "type": "boolean"
+                    },
+                    "isEnabled": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "ethoca": {
+                  "type": "object"
+                },
+                "fraudXp": {
+                  "properties": {
+                    "isEnabled": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "moneris": {
+                  "properties": {
+                    "sftpPassword": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "sftpUser": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "type": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "sourceAuthority": {
+          "properties": {
+            "location": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "origin": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "referenceId": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "type": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword"
+            }
+          }
+        },
+        "valueAddedServices": {
+          "properties": {
+            "accountUpdater": {
+              "properties": {
+                "isEnabled": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "availableServices": {
+              "properties": {
+                "name": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "providerName": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "fees": {
+                  "type": "object"
+                },
+                "properties": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,211 @@
+{
+	 "query": {
+	   "bool": {
+		 "must": [
+		   {{#origin}}
+		   { "term": {"sourceAuthority.origin.keyword": "{{origin}}" }},
+		   {{/origin}}
+
+		   {{#agentId}}
+		   { "term": {"agents.id.keyword": "{{agentId}}" }},
+		   {{/agentId}}
+
+		   {{#merchantType}}
+		   { "terms": {"type.keyword": {{#toJson}}merchantType{{/toJson}} }},
+		   {{/merchantType}}
+
+		   {{#createdOnStartDateTime}}
+		   {{#createdOnEndDateTime}}
+		   { "range": {"creationDate": {"gte": "{{createdOnStartDateTime}}", "lte": "{{createdOnEndDateTime}}", "format": "yyyy-MM-dd'T'HH:mm:ss'Z'"} }},
+		   {{/createdOnEndDateTime}}
+		   {{/createdOnStartDateTime}}
+
+		   {{#thirdParties}}
+		   {
+			 "bool": {
+			   "should": [
+				 {{#equifax}}
+			     {
+				   { "exists": { "field": "valueAddedServices.thirdPartyConfiguration.eqfId.keyword" }},
+				   { "exists": { "field": "valueAddedServices.thirdPartyConfiguration.eqfPassword.keyword" }},
+				   { "exists": { "field": "valueAddedServices.thirdPartyConfiguration.eqfProcessorId.keyword" }}
+                 },
+				 {{/equifax}}
+
+				 {{#equifaxAcro}}
+				 {
+					{ "exists": { "field": "valueAddedServices.thirdPartyConfiguration.eqfAcroCustomerNumber.keyword" }},
+					{ "exists": { "field": "valueAddedServices.thirdPartyConfiguration.eqfAcroSecurityCode.keyword" }},
+					{ "exists": { "field": "valueAddedServices.thirdPartyConfiguration.eqfAcroCustomerCode.keyword" }}
+				 },
+				 {{/equifaxAcro}}
+
+				 {{#threatMetrix}}
+				 {
+					{ "exists": { "field": "valueAddedServices.thirdPartyConfiguration.threatMetrixOrgId.keyword" }},
+					{ "exists": { "field": "valueAddedServices.thirdPartyConfiguration.threatMetrixApiKey.keyword" }}
+				 },
+				 {{/threatMetrix}}
+
+				 { "exists": { "field": "type.keyword" }}
+			   ]
+			 }
+		   },
+		   {{/thirdParties}}
+
+		   {
+			 "nested": {
+			   "path": "paymentAccounts",
+			   "query": {
+				 "bool": {
+				   "must": [
+					 {{#paymentAccountId}}
+					 { "terms": {"paymentAccounts.id.keyword": {{#toJson}}paymentAccountId{{/toJson}} }},
+					 {{/paymentAccountId}}
+
+					 {{#paymentAccountIds}}
+					 { "terms": {"paymentAccounts.id.keyword": {{#toJson}}paymentAccountIds{{/toJson}} }},
+					 {{/paymentAccountIds}}
+
+					 {{#paymentAccountStatus}}
+					 { "terms": {"paymentAccounts.status.keyword": {{#toJson}}paymentAccountStatus{{/toJson}} }},
+					 {{/paymentAccountStatus}}
+
+					 {{#paymentAccountCurrency}}
+					 { "terms": {"paymentAccounts.currency.keyword": {{#toJson}}paymentAccountCurrency{{/toJson}} }},
+					 {{/paymentAccountCurrency}}
+
+					 {{#contactName}}
+					 { "multi_match": {
+						 "query": "{{contactName}}",
+						 "fields": ["paymentAccounts.contacts.firstName.keyword", "paymentAccounts.contacts.lastName.keyword"]
+					   }
+					 },
+					 {{/contactName}}
+
+					 {{#contactEmails}}
+					 { "terms": {"paymentAccounts.contacts.email.keyword": {{#toJson}}contactEmails{{/toJson}} }},
+					 {{/contactEmails}}
+
+					 {
+					   "nested": {
+						 "path": "paymentAccounts.processingAccounts",
+						 "query": {
+						 "bool": {
+						   "must": [
+							 {{#merchantName}}
+							 { "term": {"paymentAccounts.processingAccounts.businessDetails.tradeName.keyword": "{{merchantName}}" }},
+							 {{/merchantName}}
+
+							 {{#merchantId}}
+							 { "terms": {"paymentAccounts.processingAccounts.sourceAuthority.referenceId.keyword": {{#toJson}}merchantId{{/toJson}} }},
+							 {{/merchantId}}
+
+							 {{#merchantIds}}
+							 { "terms": {"paymentAccounts.processingAccounts.sourceAuthority.referenceId.keyword": {{#toJson}}merchantIds{{/toJson}} }},
+							 {{/merchantIds}}
+
+							 {{#pmleId}}
+							 { "terms": {"paymentAccounts.processingAccounts.pmleId.keyword": {{#toJson}}pmleId{{/toJson}} }},
+							 {{/pmleId}}
+
+							 {{#pmleIds}}
+							 { "terms": {"paymentAccounts.processingAccounts.pmleId.keyword": {{#toJson}}pmleIds{{/toJson}} }},
+							 {{/pmleIds}}
+
+							 {{#processingAccountTypes}}
+							 { "terms": {"paymentAccounts.processingAccounts.type.keyword":  {{#toJson}}processingAccountTypes{{/toJson}} }},
+							 {{/processingAccountTypes}}
+
+							 {{#processingAccountId}}
+							 { "terms": {"paymentAccounts.processingAccounts.id.keyword": {{#toJson}}processingAccountId{{/toJson}} }},
+							 {{/processingAccountId}}
+
+							 {{#processingAccountIds}}
+							 { "terms": {"paymentAccounts.processingAccounts.id.keyword": {{#toJson}}processingAccountIds{{/toJson}} }},
+							 {{/processingAccountIds}}
+
+							 {{#merchantLegalEntityId}}
+							 { "terms": {"paymentAccounts.processingAccounts.businessDetails.legalEntity.id.keyword": {{#toJson}}merchantLegalEntityId{{/toJson}} }},
+							 {{/merchantLegalEntityId}}
+
+							 {{#merchantLegalEntityIds}}
+							 { "terms": {"paymentAccounts.processingAccounts.businessDetails.legalEntity.id.keyword": {{#toJson}}merchantLegalEntityIds{{/toJson}} }},
+							 {{/merchantLegalEntityIds}}
+
+							 {{#merchantLegalEntity}}
+							 { "term": {"paymentAccounts.processingAccounts.businessDetails.legalEntity.description.keyword": "{{merchantLegalEntity}}" }},
+							 {{/merchantLegalEntity}}
+
+							 {{#merchantLegalEntities}}
+							 { "terms": {"paymentAccounts.processingAccounts.businessDetails.legalEntity.description.keyword": {{#toJson}}merchantLegalEntities{{/toJson}} }},
+							 {{/merchantLegalEntities}}
+
+							 {{#accountGroups}}
+							 { "terms": {"paymentAccounts.processingAccounts.businessDetails.accountGroups.keyword": {{#toJson}}accountGroups{{/toJson}} }},
+							 {{/accountGroups}}
+
+							 {{#mccCode}}
+							 { "term": {"paymentAccounts.processingAccounts.businessDetails.mcc.code.keyword": "{{mccCode}}" }},
+							 {{/mccCode}}
+
+							 {{#accountManager}}
+							 { "term": {"paymentAccounts.processingAccounts.businessDetails.onboardingInformation.accountManager.keyword": "{{accountManager}}" }},
+							 {{/accountManager}}
+
+							 {{#partnerName}}
+							 { "term": {"paymentAccounts.processingAccounts.businessDetails.onboardingInformation.partnerName.keyword": "{{partnerName}}" }},
+							 {{/partnerName}}
+
+							 {{#partnerId}}
+							 { "terms": {"paymentAccounts.processingAccounts.businessDetails.onboardingInformation.partnerId.keyword": {{#toJson}}partnerId{{/toJson}} }},
+							 {{/partnerId}}
+
+							 {{#partnerIds}}
+							 { "terms": {"paymentAccounts.processingAccounts.businessDetails.onboardingInformation.partnerId.keyword": {{#toJson}}partnerIds{{/toJson}} }},
+							 {{/partnerIds}}
+
+							 {{#partnerProductName}}
+							 { "term": {"paymentAccounts.processingAccounts.businessDetails.onboardingInformation.partnerProductName.keyword": "{{partnerProductName}}" }},
+							 {{/partnerProductName}}
+
+							 {{#partnerProductId}}
+							 { "term": {"paymentAccounts.processingAccounts.businessDetails.onboardingInformation.partnerProductId.keyword": "{{partnerProductId}}" }},
+							 {{/partnerProductId}}
+
+							 {{#country}}
+							 { "terms": {"paymentAccounts.processingAccounts.businessDetails.registeredAddress.country.keyword": {{#toJson}}country{{/toJson}} }},
+							 {{/country}}
+
+							 {{#processingAccountStatus}}
+							 { "terms": {"paymentAccounts.processingAccounts.status.code.keyword": {{#toJson}}processingAccountStatus{{/toJson}} }},
+							 {{/processingAccountStatus}}
+
+							 {{#defaultBank}}
+							 { "terms": {"paymentAccounts.processingAccounts.defaultBank.keyword": {{#toJson}}defaultBank{{/toJson}} }},
+							 {{/defaultBank}}
+
+							 {{#processingAccountCurrency}}
+							 { "terms": {"paymentAccounts.processingAccounts.currency.keyword": {{#toJson}}processingAccountCurrency{{/toJson}} }},
+							 {{/processingAccountCurrency}}
+
+							 { "exists": { "field": "paymentAccounts.processingAccounts.id" }}
+						]
+					   }
+					 }
+				   }
+				 }
+			   ]
+			 }
+		  }
+		 }
+	   }
+	 ] }
+	}
+	{{#offset}}
+	{{#limit}},
+	"from" : "{{offset}}",
+	"size" : "{{limit}}"
+	{{/limit}}
+	{{/offset}}
+}

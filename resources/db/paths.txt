@@ -1,0 +1,30 @@
+mkdir -p MPP/jsondb/masterMerchant/fileprocessing
+
+hadoop fs -mkdir -p /GMM/streams
+
+maprcli stream create -path /GMM/streams/masterMerchant
+maprcli stream edit -path /GMM/streams/masterMerchant -produceperm p -consumeperm p -topicperm p
+maprcli stream topic create -path /GMM/streams/masterMerchant -topic masterMerchantData
+maprcli stream topic create -path /GMM/streams/masterMerchant -topic groupData
+maprcli stream topic create -path /GMM/streams/masterMerchant -topic paymentAccountData
+maprcli stream topic create -path /GMM/streams/masterMerchant -topic processingAccountData
+
+--File processing related path and stream/topic creation start
+
+hadoop fs -mkdir -p /MPP/maprfs/dataIngestion/gmobe/merchantDataImport/sftp/zeus
+hadoop fs -mkdir -p /GMM/streams/dataIngestion/masterMerchant/merchantDataImport
+
+
+maprcli stream create -path /GMM/streams/dataIngestion/masterMerchant/merchantDataImport/zeus
+maprcli stream edit -path /GMM/streams/dataIngestion/masterMerchant/merchantDataImport/zeus -produceperm p -consumeperm p -topicperm p -ttl 0
+maprcli stream topic create -path /GMM/streams/dataIngestion/masterMerchant/merchantDataImport/zeus -topic merchants
+maprcli stream topic create -path /GMM/streams/dataIngestion/masterMerchant/merchantDataImport/zeus -topic owners
+maprcli stream topic create -path /GMM/streams/dataIngestion/masterMerchant/merchantDataImport/zeus -topic merchantfeescard
+maprcli stream topic create -path /GMM/streams/dataIngestion/masterMerchant/merchantDataImport/zeus -topic fulfillmenthouse
+maprcli stream topic create -path /GMM/streams/dataIngestion/masterMerchant/merchantDataImport/zeus -topic descriptors
+maprcli stream topic create -path /GMM/streams/dataIngestion/masterMerchant/merchantDataImport/zeus -topic documents
+maprcli stream topic create -path /GMM/streams/dataIngestion/masterMerchant/merchantDataImport/zeus -topic terminals
+maprcli stream topic create -path /GMM/streams/dataIngestion/masterMerchant/merchantDataImport/zeus -topic businessrelationship
+maprcli stream topic create -path /GMM/streams/dataIngestion/masterMerchant/merchantDataImport/zeus -topic merchantids
+
+--File processing related path and stream/topic creation end.

@@ -1,0 +1,59 @@
+{
+  "template": {
+    "query": {
+      "bool": {
+        "should": [
+          {
+            "nested": {
+              "path": "paymentAccounts",
+              "query": {
+                "bool": {
+                  "should": [
+                    {
+                      "nested": {
+                        "path": "paymentAccounts.processingAccounts",
+                        "query": {
+                          "bool": {
+                            "should": [
+                              {
+                                "wildcard": {
+                                  "paymentAccounts.processingAccounts.id.keyword": "*{{smartsearchquerystring}}*"
+                                }
+                              },
+                              {
+                                "wildcard": {
+                                  "paymentAccounts.processingAccounts.businessOwners.person.email.keyword": "*{{smartsearchquerystring}}*"
+                                }
+                              },
+                              {
+                                "wildcard": {
+                                  "paymentAccounts.processingAccounts.businessDetails.legalEntity.description.keyword": "*{{smartsearchquerystring}}*"
+                                }
+                              },
+                              {
+                                "wildcard": {
+                                  "paymentAccounts.processingAccounts.businessDetails.tradeName.keyword": "*{{smartsearchquerystring}}*"
+                                }
+                              },
+                              {
+                                "wildcard": {
+                                  "paymentAccounts.processingAccounts.sourceAuthority.referenceId.keyword": "*{{smartsearchquerystring}}*"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "from": "{{offset}}",
+    "size": "{{limit}}"
+  }
+}

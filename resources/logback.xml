@@ -1,0 +1,42 @@
+<configuration>
+   <turboFilter class="com.paysafe.ss.logging.ReduceLogVerbosityFilter" />
+   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+       <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+           <providers>
+               <timestamp>
+                   <timeZone>UTC</timeZone>
+               </timestamp>
+               <pattern>
+                   <pattern>
+                       {
+                       "correlationId":"%X{X-INTERNAL-CORRELATION-ID:-System}",
+                       "guid":"%X{X-INTERNAL-REQUEST-ID:-System}",
+                       "thread":"%thread",
+                       "severity":"%level",
+                       "class":"%logger{40}",
+                       "lineNum":"%line",
+                       "message":"%msg",
+                       "json_message": "#asJson{%msg}"
+                       }
+                   </pattern>
+               </pattern>
+               <logstashMarkers/>
+               <stackTrace>
+                   <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+                       <maxDepthPerThrowable>60</maxDepthPerThrowable>
+                       <maxLength>10240</maxLength>
+                       <shortenedClassNameLength>40</shortenedClassNameLength>
+                       <rootCauseFirst>true</rootCauseFirst>
+                   </throwableConverter>
+               </stackTrace>
+           </providers>
+       </encoder>
+   </appender>
+   <root level="INFO">
+       <appender-ref ref="STDOUT" />
+   </root>
+<!--
+   For fine-grained package level settings see the "Logback Custom Log Level Configuration" Confluence Page
+   https://confluence.oneplatform.org/confluence/display/OP/Logback+Custom+Log+Level+Configuration
+ -->
+</configuration>

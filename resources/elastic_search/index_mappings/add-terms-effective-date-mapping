@@ -1,0 +1,13 @@
+PUT paysafe-master-merchant/_mapping/searchData
+{
+  "properties": {
+    "termsAndConditions": {
+      "properties": {
+        "effectiveDate": {
+          "type": "date",
+          "format": "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        }
+      }
+    }
+  }
+}

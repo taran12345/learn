@@ -1,0 +1,109 @@
+databaseChangeLog:
+
+  ###############################################
+  ## Tables changes
+  ###############################################
+  - include:
+      file: db/mmcht/changelog/MPP_1426/drop_existing_tables_hsql.sql
+
+  ###############################################
+  ## To initialize the liquibase.schema variable.
+  ###############################################
+  - property:
+      name: liquibase.schema
+      value: mmcht
+      dbms: oracle
+
+  ###############################################
+  ## To initialize the sequence variables for the
+  ## non-testing and non-production database
+  ## environments.
+  ###############################################
+  - include:
+      file: db/framework/changelog/sequence-properties.yaml
+
+  ###############################################
+  ## To initialize the type table variables.
+  ###############################################
+  - include:
+      file: db/framework/changelog/type-table-properties.yaml
+
+  ###############################################
+  ## Auditing
+  ###############################################
+  - include:
+      file: db/auditing/changelog/db.auditing.yaml
+
+  ###############################################
+  ## Framework
+  ###############################################
+  - include:
+      file: db/framework/changelog/db.framework.yaml
+
+  ###############################################
+  ## Quartz
+  ###############################################
+  # - include:
+  #     file: db/quartz/changelog/db.quartz.yaml
+
+  ###############################################
+  ## Master Merchant - Replaceable DB
+  ## Objects
+  ###############################################
+  - include:
+      file: db/mmcht/changelog/functions/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/views/changelog.yaml
+
+  #  ###############################################
+  # ## Master Merchant - Non-Replaceable
+  # ## DB Objects
+  # ###############################################
+  - include:
+      file: db/mmcht/changelog/GMO-6576/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-6769/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-10494/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-10815/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-10817/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-10818/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-10893/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-10895/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-10896/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-10897/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-10898/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-10899/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-10900/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-10901/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-10902/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-10903/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-10906/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-10975/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-11464/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-11021/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-11755/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-10882/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-12850/changelog.yaml
+  - include:
+      file: db/mmcht/changelog/GMO-13098/changelog.yaml

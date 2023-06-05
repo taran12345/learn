@@ -1,0 +1,18 @@
+PUT paysafe-master-merchant/_mapping/searchData
+{
+  "properties": {
+    "paymentAccounts" : {
+      "type": "nested",
+      "properties": {
+        "paymentSchedules": {
+          "properties": {
+            "effectiveDate": {
+              "type": "date",
+              "format": "yyyyMMdd"
+            }
+          }
+        }
+      }
+    }
+  }
+}
