@@ -1,0 +1,217 @@
+buildscript {
+
+  ext {
+    paysafeBomVersion = "2.3.12.C"
+    springBootVersion = "2.3.12.RELEASE"
+    oracleVersion = "19.7.0.0"
+    lombokVersion = "1.18.20"
+    jacksonVersion = "2.13.3"
+    log4jVersion = "2.17.2"
+    artifactory_contextUrl = "https://artifactory.neterra.paysafe.com/artifactory"
+  }
+
+  repositories {
+    maven { url "${artifactory_contextUrl}/plugins-release" }
+    maven { url "${artifactory_contextUrl}/libs-release" }
+  }
+
+  dependencies {
+    classpath "com.paysafe.op.plugins:paysafe-op-plugin-release:1.3.1"
+    classpath "com.paysafe.op.plugins:paysafe-op-plugin-liquibase:0.3.19"
+    classpath "com.paysafe.op.plugins:paysafe-op-plugin-microbuild:0.14.0"
+    classpath "org.oneplatform.plugin:oneplatform-plugin-qualitycheck:8.0.0"
+    classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    classpath "javax.servlet:javax.servlet-api:3.1.0"
+  }
+
+  configurations.classpath {
+    resolutionStrategy {
+      cacheDynamicVersionsFor 0, "seconds"
+      cacheChangingModulesFor 0, "seconds"
+    }
+  }
+}
+
+repositories {
+  mavenLocal()
+}
+
+apply plugin: "paysafe-op-plugin-release"
+apply plugin: "paysafe-op-plugin-microbuild-dependency"
+apply plugin: "oneplatform-plugin-qualitycheck"
+apply plugin: "paysafe-op-plugin-liquibase"
+apply plugin: "paysafe-op-plugin-microbuild-versioning"
+apply plugin: "project-report"
+
+// Disable swagger generation related tasks from release plugin
+generateSwaggerDocumentation.enabled = false
+compareSwaggerDocs.enabled = false
+verifySwaggerDocument.enabled = false
+
+dependencyManagement {
+  imports {
+    mavenBom "com.paysafe.op:paysafe-op-dependencies:$paysafeBomVersion"
+  }
+}
+
+configurations {
+  compile.exclude group: "org.slf4j", module: "slf4j-log4j12"
+  compile.exclude group: "io.netty", module: "netty-all"
+  compile.exclude group: "com.vaadin.external.google", module: "android-json"
+  compile.exclude group: "org.springframework.boot", module:"spring-boot-starter-security"
+  runtime.exclude group: "org.projectlombok", module: "lombok"
+  liquibaseConfig
+}
+
+dependencies {
+  compile 'junit:junit:4.13.1'
+  compile 'org.junit.jupiter:junit-jupiter:5.7.0'
+  String commonsAuditing = "com.paysafe.op:paysafe-op-commons-auditing:0.5.5"
+  String commonsFramework = "com.paysafe.op:paysafe-op-commons-framework:1.13.2"
+
+  compile "io.springfox:springfox-boot-starter:3.0.0"
+  compile "com.thoughtworks.xstream:xstream:1.4.19"
+  compile "org.springframework.boot:spring-boot-starter-data-jpa"
+  compile "org.springframework.boot:spring-boot-starter-validation"
+  compile "org.liquibase:liquibase-core:3.5.5"
+
+  compile "org.jadira.usertype:usertype.core:6.0.1.GA" // optional (only if you are using joda time and hibernate)
+  compile "com.oracle.database.jdbc:ojdbc8:$oracleVersion"
+  compile "javax.servlet:javax.servlet-api:3.1.0"
+  compile("com.netflix.hystrix:hystrix-javanica:1.5.18")
+  compile 'commons-io:commons-io:2.11.0'
+  compile "org.apache.commons:commons-collections4:4.4"
+  compile 'javax.el:javax.el-api:3.0.0'
+  compile 'org.json:json:20140107'
+  compile 'com.github.wnameless:json-flattener:0.4.0'
+  compile 'org.springframework.kafka:spring-kafka'
+  compile "com.paysafe.op:paysafe-op-commons-file-storage:1.3.2"
+
+  compile 'org.codehaus.jettison:jettison:1.5.1'
+  compile 'org.apache.commons:commons-configuration2:2.8.0'
+  compile ("org.apache.logging.log4j:log4j-core:$log4jVersion") { 
+    force = true 
+  }
+  compile ("org.apache.logging.log4j:log4j-api:$log4jVersion") { 
+    force = true 
+  }
+  compile ("org.apache.logging.log4j:log4j-to-slf4j:$log4jVersion") { 
+    force = true 
+  }
+  compile('ch.qos.logback:logback-classic:1.2.11') {
+    force = true
+  }
+  compile('ch.qos.logback:logback-core:1.2.11') {
+    force = true
+  }
+  compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+  compile "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
+  compile "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
+
+  compile "com.google.code.gson:gson:2.8.5"
+  compile ('com.paysafe.mpp:paysafe-mpp-commons:6.7.8') {
+    exclude group: 'com.paysafe.op', module: 'paysafe-op-commons-jsondb'
+    exclude group: 'com.paysafe.op', module: 'paysafe-op-commons-streams'
+    exclude group: 'com.paysafe.ss', module: 'paysafe-ss-pricingcommons'
+    exclude group: 'log4j'
+  }
+  compile group: 'com.jayway.jsonpath', name: 'json-path', version: '2.4.0'
+
+  compile ('com.paysafe.op:paysafe-op-commons-indexdb:4.1.0') {
+    exclude group: "org.elasticsearch"
+  }
+
+  compile "org.elasticsearch:elasticsearch:6.8.0"
+  compile("org.elasticsearch.client:transport:6.8.0") {
+    exclude group: "org.elasticsearch"
+  }
+  compile ('org.elasticsearch.plugin:transport-netty4-client:6.8.0'){
+    force=true
+  }
+  compile 'org.elasticsearch.client:elasticsearch-rest-client:6.8.0'
+  compile 'org.elasticsearch.client:elasticsearch-rest-high-level-client:6.8.0'
+
+  compile 'org.slf4j:log4j-over-slf4j'
+
+  compile group: 'com.univocity', name: 'univocity-parsers', version: '2.5.0'
+
+  compile "org.projectlombok:lombok:${lombokVersion}"
+
+  compile "com.jcraft:jsch:0.1.54"
+  compile group: 'org.bouncycastle', name: 'bcpg-jdk15on', version: '1.60'
+  compile group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.60'
+  compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.60'
+
+  compile "com.opencsv:opencsv:4.0"
+
+  compile 'org.mvel:mvel2:2.3.1.Final'
+
+  compile "com.paysafe.ss:paysafe-ss-permission-client:4.1.0"
+  compile('com.paysafe.ss:paysafe-ss-pricingcommons:8.0.3') {
+    exclude module: 'oneplatform-bigdata-commons'
+    exclude module: 'oneplatform-commons-error-handling'
+    exclude module: 'paysafe-op-commons-jsondb'
+    exclude module: 'paysafe-op-commons-streams'
+    exclude group: 'org.codehaus.jackson'
+    exclude group: 'log4j'
+    exclude group: 'com.mapr.fs'
+    exclude group: 'com.mapr.db'
+    exclude group: 'com.mapr.streams'
+    exclude group: 'com.mapr.hadoop'
+  }
+  compile("com.paysafe.ss:paysafe-ss-logging:7.10.0") { changing = true }
+  compile(commonsAuditing) { changing = true }
+  compile(commonsFramework) {
+    exclude group: 'org.codehaus.jackson'
+    exclude group: 'log4j'
+    exclude module: 'commons-configuration2'
+    exclude module: "spring-boot-starter-security"            // add this exclusion ONLY if you DO NOT need JWT authentication/authorization
+    exclude module: "spring-security-oauth2-autoconfigure"    // add this exclusion ONLY if you DO NOT need JWT authentication/authorization
+    exclude module: "oneplatform-commons-error-handling"
+    exclude module: "com.mapr.hadoop"
+  }
+
+  compileOnly('org.springframework.boot:spring-boot-configuration-processor') {
+    exclude group: 'com.vaadin.external.google'
+  }
+
+  compileOnly "org.projectlombok:lombok:${lombokVersion}"
+  annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+  testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+  testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+  apiTestCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+  apiTestAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+  certificationTestCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+  certificationTestAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+  acceptanceTestCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+  acceptanceTestAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+  testCompile 'org.assertj:assertj-core:3.5.2'
+  testCompile group: 'com.jayway.jsonpath', name: 'json-path', version: '2.4.0'
+  testCompile "com.paysafe.op:paysafe-op-commons-test:0.7.14"
+  runtime "org.springframework.boot:spring-boot-properties-migrator"
+
+  testRuntime 'org.apache.httpcomponents:httpclient:4.5.1'
+  testRuntime 'org.liquibase:liquibase-core:3.4.1'
+
+  liquibaseConfig(commonsAuditing)
+  liquibaseConfig(commonsFramework)
+}
+
+if (System.getProperty("k8s") == "true") {
+  dependencies {
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-kubernetes', version: '1.0.3.RELEASE'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-context', version: '2.1.1.RELEASE'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-kubernetes-config', version: '1.0.3.RELEASE'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-netflix-hystrix', version: '2.1.1.RELEASE'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-kubernetes-ribbon', version: '1.1.0.RELEASE'
+    compile group: 'io.fabric8', name: 'kubernetes-client', version: '4.12.0'
+  }
+  configurations {
+    compile.exclude group: "org.springframework.cloud", module: "spring-cloud-netflix-core"
+  }
+}
